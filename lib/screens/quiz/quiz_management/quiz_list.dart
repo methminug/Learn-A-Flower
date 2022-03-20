@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:learn_a_flower_app/screens/quiz/quiz_management/quiz_tile.dart';
+import 'package:learn_a_flower_app/services/quiz_service.dart';
+
+import '../../../models/quiz.dart';
+import '../../../routes/app_routes.dart';
 
 class QuizList extends StatefulWidget {
   const QuizList({Key? key}) : super(key: key);
@@ -8,8 +13,65 @@ class QuizList extends StatefulWidget {
 }
 
 class _QuizListState extends State<QuizList> {
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
+  Future<dynamic> _onRefresh() async {
+    setState(() {});
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      key: _refreshIndicatorKey,
+      child: FutureBuilder(
+          future: QuizService.getQuizList(0),
+          builder: (BuildContext context, AsyncSnapshot<List<Quiz>> snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data!.isNotEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
+                  child: ListView.builder(
+                      itemCount: snapshot.data!.length + 1,
+                      itemBuilder: (BuildContext context, int index) {
+                        if (index == 0) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              const Spacer(),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(0, 0, 20, 10),
+                                child: TextButton(
+                                  child: const Text("Create new quiz"),
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      AppRoutes.QUIZ_MANAGEMENT_NEW_QUIZ,
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return Container(
+                            margin: const EdgeInsets.only(
+                                left: 20, top: 10, right: 20, bottom: 10),
+                            child:
+                                QuizTile(quizInfo: snapshot.data![index - 1]),
+                          );
+                        }
+                      }),
+                );
+              } else {
+                return const Text('NO QUIZZES');
+              }
+            } else {
+              return const CircularProgressIndicator();
+            }
+          }),
+    );
   }
 }

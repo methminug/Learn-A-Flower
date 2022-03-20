@@ -2,11 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class CloudFirestoreService {
-  static dynamic _filteredCollection(String collection, List<dynamic> filters) {
-    dynamic collectionRef = FirebaseFirestore.instance.collection(collection);
+  static dynamic _filteredCollection(String collection, List<dynamic> filters,
+      {sortOrder}) {
+    dynamic collectionRef;
+    collectionRef = FirebaseFirestore.instance.collection(collection);
     filters.forEach((filter) {
       collectionRef =
           collectionRef.where(filter['name'], isEqualTo: filter['value']);
+    });
+    sortOrder.forEach((sort) {
+      collectionRef.orderBy(sort['field'], descending: sort['isDescending']);
     });
     return collectionRef;
   }
@@ -25,9 +30,10 @@ class CloudFirestoreService {
   }
 
   static Future<dynamic> read(String collection, List<dynamic> filters,
-      {limit}) async {
+      {limit, sortOrder}) async {
     List<dynamic> data = [];
-    dynamic collectionRef = _filteredCollection(collection, filters);
+    dynamic collectionRef =
+        _filteredCollection(collection, filters, sortOrder: sortOrder);
     if (limit != null) collectionRef = collectionRef.limit(limit);
     await collectionRef.get().then((QuerySnapshot querySnapshot) {
       if (querySnapshot.docs.isNotEmpty) data = querySnapshot.docs;
