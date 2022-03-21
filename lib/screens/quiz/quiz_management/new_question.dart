@@ -196,36 +196,7 @@ class _NewQuestionState extends State<NewQuestion> {
                         style: Theme.of(context).textTheme.headline6),
                     style: ElevatedButton.styleFrom(primary: AppColors.primary),
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        // Product newProduct = Product.newProduct(
-                        //     name: _nameController.text,
-                        //     canteen:
-                        //         currentLoggedInUser.canteenId!,
-                        //     category: _selectedCategory,
-                        //     unitPrice: int.parse(
-                        //         _unitPriceController.text),
-                        //     servings: int.parse(
-                        //         _servingsController.text),
-                        //     description:
-                        //         _descriptionController.text,
-                        //     unitsLeft: int.parse(
-                        //         _unitsLeftController.text));
-                        // dynamic res =
-                        //     await ProductService.addNewProduct(
-                        //         currentLoggedInUser.canteenId!,
-                        //         newProduct,
-                        //         imageFile);
-                        // if (res is SuccessMessage) {
-                        //   Navigator.popAndPushNamed(context,
-                        //       AppRoutes.PRODUCT_MANAGEMENT);
-                        //   await showCoolAlert(
-                        //       context, true, res.message);
-                        // } else {
-                        //   await showCoolAlert(
-                        //       context, false, res.message,
-                        //       noAutoClose: true);
-                        // }
-                      }
+                      if (_formKey.currentState!.validate()) {}
                     },
                   ),
                 ),
