@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/models/quiz.dart';
+import 'package:learn_a_flower_app/models/quiz_question.dart';
 import 'package:learn_a_flower_app/services/database_service.dart';
 
 class QuizService {
@@ -19,5 +23,19 @@ class QuizService {
     return (responses as List)
         .map((doc) => Quiz.fromDocumentSnapshot(doc))
         .toList();
+  }
+
+  static Future<dynamic>? addNewQuestion(
+      String quizID, List<dynamic> newQuestions, File image) async {
+    newQuestions.last['image'] = await FirebaseStorageService.uploadFile(
+        image, (newQuestions.length - 1).toString(), 'question-images/$quizID');
+
+    //Get quiz document
+    List<dynamic> filters = [
+      {'name': 'id', 'value': quizID}
+    ];
+
+    return await CloudFirestoreService.update(
+        'quiz', filters, {'questions': newQuestions});
   }
 }

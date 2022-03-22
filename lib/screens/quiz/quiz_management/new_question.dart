@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
+import 'package:learn_a_flower_app/models/quiz_question.dart';
+import 'package:learn_a_flower_app/routes/app_routes.dart';
+import 'package:learn_a_flower_app/services/quiz_service.dart';
 
 class NewQuestion extends StatefulWidget {
   const NewQuestion({Key? key}) : super(key: key);
@@ -20,10 +23,12 @@ class _NewQuestionState extends State<NewQuestion> {
   final String errorText = 'This field is required';
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _questionController = new TextEditingController();
-  final TextEditingController _choice1Controller = new TextEditingController();
-  final TextEditingController _choice2Controller = new TextEditingController();
-  final TextEditingController _choice3Controller = new TextEditingController();
-  final TextEditingController _choice4Controller = new TextEditingController();
+  final List<TextEditingController> _choiceControllers = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
 
   int _correctAnswer = 0;
 
@@ -54,6 +59,7 @@ class _NewQuestionState extends State<NewQuestion> {
 
   @override
   Widget build(BuildContext context) {
+    dynamic arguments = ModalRoute.of(context)!.settings.arguments as dynamic;
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -122,8 +128,7 @@ class _NewQuestionState extends State<NewQuestion> {
                   leading: const Icon(Icons.question_mark_rounded,
                       color: AppColors.primaryDark),
                   title: TextFormField(
-                      style: const TextStyle(
-                          fontSize: 16, color: Colors.white, letterSpacing: 2),
+                      style: const TextStyle(fontSize: 16),
                       controller: _questionController,
                       decoration: const InputDecoration(
                           labelStyle: TextStyle(fontSize: 16),
@@ -138,7 +143,7 @@ class _NewQuestionState extends State<NewQuestion> {
                         return null;
                       },
                       style: const TextStyle(fontSize: 16),
-                      controller: _choice1Controller,
+                      controller: _choiceControllers[0],
                       decoration: const InputDecoration(
                           labelStyle: TextStyle(fontSize: 16),
                           labelText: 'Option 1')),
@@ -153,7 +158,7 @@ class _NewQuestionState extends State<NewQuestion> {
                         return null;
                       },
                       style: const TextStyle(fontSize: 16),
-                      controller: _choice2Controller,
+                      controller: _choiceControllers[1],
                       decoration: const InputDecoration(
                           labelStyle: TextStyle(fontSize: 16),
                           labelText: 'Option 2')),
@@ -168,7 +173,7 @@ class _NewQuestionState extends State<NewQuestion> {
                         return null;
                       },
                       style: const TextStyle(fontSize: 16),
-                      controller: _choice3Controller,
+                      controller: _choiceControllers[2],
                       decoration: const InputDecoration(
                           labelStyle: TextStyle(fontSize: 16),
                           labelText: 'Option 3')),
@@ -183,7 +188,7 @@ class _NewQuestionState extends State<NewQuestion> {
                         return null;
                       },
                       style: const TextStyle(fontSize: 16),
-                      controller: _choice4Controller,
+                      controller: _choiceControllers[3],
                       decoration: const InputDecoration(
                           labelStyle: TextStyle(fontSize: 16),
                           labelText: 'Option 4')),
@@ -196,7 +201,38 @@ class _NewQuestionState extends State<NewQuestion> {
                         style: Theme.of(context).textTheme.headline6),
                     style: ElevatedButton.styleFrom(primary: AppColors.primary),
                     onPressed: () async {
-                      if (_formKey.currentState!.validate()) {}
+                      if (_formKey.currentState!.validate()) {
+                        List<String> _options = [];
+                        // _choiceControllers
+                        //     .map((controller) => _options.add(controller.text));
+
+                        _choiceControllers.forEach((element) {
+                          _options.add(element.text);
+                        });
+
+                        QuizQuestion newQuestion = QuizQuestion.newQuestion(
+                            answer: _correctAnswer,
+                            options: _options,
+                            question: _questionController.text);
+
+                        List<dynamic> newQuestions =
+                            arguments['quiz_info'].questions;
+
+                        newQuestions.add(QuizQuestion.toJSON(newQuestion));
+
+                        dynamic result = await QuizService.addNewQuestion(
+                            arguments['quiz_info'].id, newQuestions, imageFile);
+                        if (result) {
+                          Navigator.pop(context);
+                          Navigator.popAndPushNamed(
+                              context, AppRoutes.QUIZ_MANAGEMENT_QUESTIONS,
+                              arguments: {'quiz_info': arguments['quiz_info']});
+                          // TODO SHOW ALERT
+                        } else {
+                          // TODO SHOW ALERT
+                          print('Couldnt add question');
+                        }
+                      }
                     },
                   ),
                 ),

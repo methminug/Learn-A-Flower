@@ -39,20 +39,20 @@ class QuestionTile extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              questionInfo.containsKey('question')
-                  ? Container(
+              questionInfo['question'] == ""
+                  ? const SizedBox()
+                  : Container(
                       width: MediaQuery.of(context).size.width * 0.4,
                       child: Text(
                         questionInfo['question'].toString(),
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                    )
-                  : const SizedBox(),
+                    ),
               const SizedBox(height: 4),
               Container(
                 width: MediaQuery.of(context).size.width * 0.4,
                 child: Text(
-                  'Answer: ${questionInfo['answer'].toString()}',
+                  'Answer: ${questionInfo['options'][questionInfo['answer']].toString()}',
                 ),
               ),
             ],
