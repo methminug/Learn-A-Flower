@@ -3,8 +3,11 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+//COMMON FIREBASE AND FIRESTORE FUNCTIONS
+
+//DATA STORAGE
 class CloudFirestoreService {
-  static dynamic _filteredCollection(String collection, List<dynamic> filters,
+  static dynamic _filterCollection(String collection, List<dynamic> filters,
       {sortOrder}) {
     dynamic collectionRef;
 
@@ -38,17 +41,17 @@ class CloudFirestoreService {
       {limit, sortOrder}) async {
     List<dynamic> data = [];
     dynamic collectionRef =
-        _filteredCollection(collection, filters, sortOrder: sortOrder);
+        _filterCollection(collection, filters, sortOrder: sortOrder);
     if (limit != null) collectionRef = collectionRef.limit(limit);
-    await collectionRef.get().then((QuerySnapshot querySnapshot) {
-      if (querySnapshot.docs.isNotEmpty) data = querySnapshot.docs;
+    await collectionRef.get().then((QuerySnapshot snapshot) {
+      if (snapshot.docs.isNotEmpty) data = snapshot.docs;
     });
     return limit == 1 ? (data.isNotEmpty ? data[0] : null) : data;
   }
 
   static Future<dynamic> update(
       String collection, List<dynamic> filters, dynamic data) async {
-    dynamic collectionRef = _filteredCollection(collection, filters);
+    dynamic collectionRef = _filterCollection(collection, filters);
     dynamic result = true;
 
     await collectionRef.get().then((QuerySnapshot snapshot) {
@@ -69,18 +72,48 @@ class CloudFirestoreService {
 
     return result;
   }
+
+  static Future<dynamic> delete(
+      String collection, List<dynamic> filters) async {
+    dynamic res = true;
+    dynamic collectionRef = _filterCollection(collection, filters);
+    await collectionRef.get().then((QuerySnapshot snapshot) {
+      snapshot.docs.forEach((queryDoc) {
+        FirebaseFirestore.instance
+            .collection(collection)
+            .doc(queryDoc.id)
+            .delete()
+            .catchError((error) {
+          res = false;
+        });
+      });
+    }).catchError((error) {
+      print(error);
+      res = false;
+    });
+    return res;
+  }
 }
 
-// STORING IMAGES
+// IMAGE FILES STORAGE
 class FirebaseStorageService {
   static FirebaseStorage fireBaseStorage = FirebaseStorage.instance;
 
   static Future<String> uploadFile(
       File file, String fileName, String filepath) async {
-    var storageRef = fireBaseStorage.ref().child('/$filepath/$fileName');
+    Reference storageRef = fireBaseStorage.ref().child('/$filepath/$fileName');
 
-    var uploadTask = await storageRef.putFile(file);
+    TaskSnapshot uploadTask = await storageRef.putFile(file);
     String downloadURL = await uploadTask.ref.getDownloadURL();
     return downloadURL;
+  }
+
+  static Future<void> deleteFile(String filePath, String fileName) async {
+    Reference storageRef = fireBaseStorage.ref().child('/$filePath/$fileName');
+
+    storageRef
+        .delete()
+        .then((value) => print("File deleted successfully"))
+        .catchError((e) => print(e));
   }
 }
