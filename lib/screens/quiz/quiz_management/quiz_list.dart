@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/screens/quiz/quiz_management/quiz_tile.dart';
 import 'package:learn_a_flower_app/services/quiz_service.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../models/quiz.dart';
 import '../../../routes/app_routes.dart';
@@ -66,7 +67,19 @@ class _QuizListState extends State<QuizList> {
                       }),
                 );
               } else {
-                return const Text('NO QUIZZES');
+                return Column(
+                  children: [
+                    Container(
+                        height: 250,
+                        width: 250,
+                        child: Lottie.asset("assets/animations/addData.json")),
+                    Text(
+                      'No quizzes',
+                      style: TextStyle(
+                          color: Colors.grey[500], fontWeight: FontWeight.bold),
+                    )
+                  ],
+                );
               }
             } else {
               return const CircularProgressIndicator();

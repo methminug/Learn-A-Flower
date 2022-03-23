@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/routes/app_routes.dart';
 import 'package:learn_a_flower_app/screens/quiz/quiz_management/question_tile.dart';
+import 'package:lottie/lottie.dart';
 
 class QuestionList extends StatefulWidget {
   const QuestionList({Key? key}) : super(key: key);
@@ -28,7 +29,6 @@ class _QuestionListState extends State<QuestionList> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             //TODO IMPLMENT PLAY FEATURE
-            print('Play Quiz');
           },
           child: const Icon(Icons.play_arrow_rounded),
           tooltip: 'Preview this quiz',
@@ -37,7 +37,7 @@ class _QuestionListState extends State<QuestionList> {
         body: Padding(
           padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
           child: ListView.builder(
-              itemCount: questions.length + 1,
+              itemCount: questions.isEmpty ? 2 : questions.length + 1,
               itemBuilder: (BuildContext context, int index) {
                 if (index == 0) {
                   return Row(
@@ -67,6 +67,21 @@ class _QuestionListState extends State<QuestionList> {
                           },
                         ),
                       ),
+                    ],
+                  );
+                } else if (questions.length + 1 == 1) {
+                  return Column(
+                    children: [
+                      Container(
+                          height: 250,
+                          width: 250,
+                          child: Image.asset("assets/animations/addData.gif")),
+                      Text(
+                        'No questions',
+                        style: TextStyle(
+                            color: Colors.grey[500],
+                            fontWeight: FontWeight.bold),
+                      )
                     ],
                   );
                 } else {

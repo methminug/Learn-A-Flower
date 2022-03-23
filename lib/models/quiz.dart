@@ -24,4 +24,13 @@ class Quiz {
       questions: doc.data()['questions'],
     );
   }
+
+  static toJSON(Quiz quiz) {
+    return {
+      'id': quiz.id,
+      'title': quiz.title,
+      'level': quiz.level,
+      'questions': quiz.questions
+    };
+  }
 }

@@ -72,9 +72,9 @@ class QuestionTile extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(3),
                   color: AppColors.primary),
-              child: Padding(
+              child: const Padding(
                 padding: EdgeInsets.fromLTRB(8, 27.5, 8, 27.5),
-                child: const Center(
+                child: Center(
                     child: Icon(
                   Icons.edit,
                   color: Colors.white,

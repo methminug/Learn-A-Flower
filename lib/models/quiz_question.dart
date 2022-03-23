@@ -1,5 +1,5 @@
 class QuizQuestion {
-  int id = 0;
+  String id = '';
   String image = '';
   final String question;
   final int answer;
@@ -26,6 +26,7 @@ class QuizQuestion {
 
   static toJSON(QuizQuestion question) {
     return {
+      'id': question.id,
       'image': question.image,
       'question': question.question,
       'answer': question.answer,
