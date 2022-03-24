@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../helpers/colors.dart';
-import '../../../routes/app_routes.dart';
+import 'package:learn_a_flower_app/helpers/colors.dart';
 
 class QuestionTile extends StatelessWidget {
   const QuestionTile(
@@ -28,7 +26,7 @@ class QuestionTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
             child: Hero(
               tag: questionInfo['image'].toString(),
-              child: Container(
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.3,
                 height: MediaQuery.of(context).size.height * 0.1,
                 child: Image.network(
@@ -43,7 +41,7 @@ class QuestionTile extends StatelessWidget {
             children: [
               questionInfo['question'] == ""
                   ? const SizedBox()
-                  : Container(
+                  : SizedBox(
                       width: MediaQuery.of(context).size.width * 0.4,
                       child: Text(
                         questionInfo['question'].toString(),
@@ -51,7 +49,7 @@ class QuestionTile extends StatelessWidget {
                       ),
                     ),
               const SizedBox(height: 4),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width * 0.4,
                 child: Text(
                   'Answer: ${questionInfo['options'][questionInfo['answer']].toString()}',

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:learn_a_flower_app/helpers/colors.dart';
+import 'package:learn_a_flower_app/models/quiz.dart';
+import 'package:learn_a_flower_app/routes/app_routes.dart';
 import 'package:learn_a_flower_app/screens/quiz/quiz_management/quiz_tile.dart';
 import 'package:learn_a_flower_app/services/quiz_service.dart';
 import 'package:lottie/lottie.dart';
-
-import '../../../models/quiz.dart';
-import '../../../routes/app_routes.dart';
 
 class QuizList extends StatefulWidget {
   const QuizList({Key? key}) : super(key: key);
@@ -70,7 +68,7 @@ class _QuizListState extends State<QuizList> {
               } else {
                 return Column(
                   children: [
-                    Container(
+                    SizedBox(
                         height: 250,
                         width: 250,
                         child: Lottie.asset("assets/animations/addData.json")),

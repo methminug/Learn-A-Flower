@@ -23,7 +23,7 @@ class _NewQuestionState extends State<NewQuestion> {
   bool firstLoad = true;
   final String errorText = 'This field is required';
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _questionController = new TextEditingController();
+  final TextEditingController _questionController = TextEditingController();
   final List<TextEditingController> _choiceControllers = [
     TextEditingController(),
     TextEditingController(),

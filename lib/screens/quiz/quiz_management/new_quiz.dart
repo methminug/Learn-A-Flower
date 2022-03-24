@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/models/quiz.dart';
 import 'package:learn_a_flower_app/routes/app_routes.dart';
@@ -82,7 +79,8 @@ class _NewQuestionState extends State<NewQuiz> {
               ),
               const SizedBox(height: 50),
               ElevatedButton(
-                child: Text("Create Quiz", style: TextStyle(fontSize: 20)),
+                child:
+                    const Text("Create Quiz", style: TextStyle(fontSize: 20)),
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     Quiz newQuiz = Quiz.newQuiz(

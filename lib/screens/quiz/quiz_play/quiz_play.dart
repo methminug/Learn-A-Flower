@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/screens/quiz/quiz_play/question.dart';
 import 'package:learn_a_flower_app/screens/quiz/quiz_play/result_dialog.dart';
@@ -55,7 +54,7 @@ class _QuizPlayState extends State<QuizPlay> {
                       borderRadius: BorderRadius.circular(200),
                       child: Hero(
                         tag: 'completeQuiz',
-                        child: Container(
+                        child: SizedBox(
                             height: 250,
                             width: 250,
                             child: Lottie.asset(
