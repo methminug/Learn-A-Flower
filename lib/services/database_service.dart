@@ -101,7 +101,6 @@ class FirebaseStorageService {
   static Future<String> uploadFile(
       File file, String fileName, String filepath) async {
     Reference storageRef = fireBaseStorage.ref().child('/$filepath/$fileName');
-
     TaskSnapshot uploadTask = await storageRef.putFile(file);
     String downloadURL = await uploadTask.ref.getDownloadURL();
     return downloadURL;

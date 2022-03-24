@@ -21,6 +21,15 @@ class _QuestionListState extends State<QuestionList> {
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)!.settings.arguments as dynamic;
     final questions = arguments['quiz_info'].questions as List<dynamic>;
+
+    void _editQuestion(int index) {
+      Navigator.pushNamed(
+        context,
+        AppRoutes.QUIZ_MANAGEMENT_EDIT_QUESTION,
+        arguments: {'quiz_info': arguments['quiz_info'], 'question_id': index},
+      );
+    }
+
     return RefreshIndicator(
       key: _refreshIndicatorKey,
       onRefresh: _onRefresh,
@@ -98,6 +107,7 @@ class _QuestionListState extends State<QuestionList> {
                       quizId: arguments['quiz_info'].id,
                       questionId: index - 1,
                       questionInfo: questions[index - 1],
+                      editQuestion: _editQuestion,
                     ),
                   );
                 }

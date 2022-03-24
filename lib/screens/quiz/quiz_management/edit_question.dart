@@ -8,59 +8,63 @@ import 'package:learn_a_flower_app/routes/app_routes.dart';
 import 'package:learn_a_flower_app/screens/common/custom_alert.dart';
 import 'package:learn_a_flower_app/services/quiz_service.dart';
 
-class NewQuestion extends StatefulWidget {
-  const NewQuestion({Key? key}) : super(key: key);
+class EditQuestion extends StatefulWidget {
+  const EditQuestion({Key? key}) : super(key: key);
 
   @override
-  State<NewQuestion> createState() => _NewQuestionState();
+  State<EditQuestion> createState() => _EditQuestionState();
 }
 
-class _NewQuestionState extends State<NewQuestion> {
+class _EditQuestionState extends State<EditQuestion> {
   dynamic progress;
   final ImagePicker _imagePicker = ImagePicker();
   late Future<XFile?> pickedFile = Future.value(null);
-  File imageFile = File('');
+  File? imageFile = File('');
   bool firstLoad = true;
   final String errorText = 'This field is required';
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _questionController = new TextEditingController();
-  final List<TextEditingController> _choiceControllers = [
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController()
-  ];
-
-  int _correctAnswer = 0;
-
-  Widget _correctAnswerIcon(int iconIndex) {
-    return InkResponse(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Answer',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: _correctAnswer == iconIndex
-                      ? AppColors.primaryDark
-                      : Colors.transparent)),
-          Icon(
-            Icons.check_circle,
-            color: _correctAnswer == iconIndex
-                ? AppColors.primaryDark
-                : Colors.grey[400],
-          ),
-        ],
-      ),
-      onTap: () => setState(() {
-        _correctAnswer = iconIndex;
-      }),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     dynamic arguments = ModalRoute.of(context)!.settings.arguments as dynamic;
+    QuizQuestion thisQuestion = QuizQuestion.fromDocumentSnapshot(
+        arguments['quiz_info'].questions[arguments['question_id']]);
+    final TextEditingController _questionController =
+        TextEditingController(text: thisQuestion.question);
+    final List<TextEditingController> _choiceControllers = [
+      TextEditingController(text: thisQuestion.options[0]),
+      TextEditingController(text: thisQuestion.options[1]),
+      TextEditingController(text: thisQuestion.options[2]),
+      TextEditingController(text: thisQuestion.options[3])
+    ];
+
+    int _correctAnswer = thisQuestion.answer;
+
+    Widget _correctAnswerIcon(int iconIndex) {
+      return InkResponse(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Answer',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: _correctAnswer == iconIndex
+                        ? AppColors.primaryDark
+                        : Colors.transparent)),
+            Icon(
+              Icons.check_circle,
+              color: _correctAnswer == iconIndex
+                  ? AppColors.primaryDark
+                  : Colors.grey[400],
+            ),
+          ],
+        ),
+        onTap: () => setState(() {
+          _correctAnswer = iconIndex;
+        }),
+      );
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -107,16 +111,15 @@ class _NewQuestionState extends State<NewQuestion> {
                               borderRadius: BorderRadius.circular(8),
                               image: DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: Image.asset(
-                                          "assets/images/uploadImageIcon.png")
-                                      .image)),
+                                  image:
+                                      Image.network(thisQuestion.image).image)),
                           child: Container(
                             alignment: Alignment.center,
                             width: MediaQuery.of(context).size.width,
                             color: AppColors.primary.withOpacity(0.8),
                             height: 40,
                             child: const Text(
-                              "TAP to add image",
+                              "TAP to change image",
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -198,7 +201,7 @@ class _NewQuestionState extends State<NewQuestion> {
                 Container(
                   margin: const EdgeInsets.only(top: 20),
                   child: ElevatedButton(
-                    child: const Text("Add Question"),
+                    child: const Text("Update Question"),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         List<String> _options = [];
@@ -212,13 +215,22 @@ class _NewQuestionState extends State<NewQuestion> {
                             options: _options,
                             question: _questionController.text);
 
+                        if (imageFile!.path == "") {
+                          newQuestion.image = thisQuestion.image;
+                          imageFile = null;
+                        }
+
                         List<dynamic> newQuestions =
                             arguments['quiz_info'].questions;
 
-                        newQuestions.add(QuizQuestion.toJSON(newQuestion));
+                        newQuestions[arguments['question_id']] =
+                            (QuizQuestion.toJSON(newQuestion));
 
-                        dynamic result = await QuizService.addNewQuestion(
-                            arguments['quiz_info'].id, newQuestions, imageFile);
+                        dynamic result = await QuizService.editQuestion(
+                            arguments['quiz_info'].id,
+                            newQuestions,
+                            imageFile,
+                            arguments['question_id']);
                         if (result) {
                           Navigator.pop(context);
                           Navigator.popAndPushNamed(
@@ -228,15 +240,14 @@ class _NewQuestionState extends State<NewQuestion> {
                               context: context,
                               builder: (_) => const CustomAlert(
                                   isSuccess: true,
-                                  alertTitle:
-                                      'New question added successfully'));
+                                  alertTitle: 'Question updated successfully'));
                         } else {
                           await showDialog(
                               context: context,
                               builder: (_) => const CustomAlert(
                                   isSuccess: false,
                                   alertTitle:
-                                      'Unable to add question.\nPlease try again later'));
+                                      'Unable to update question.\nPlease try again later'));
                         }
                       }
                     },

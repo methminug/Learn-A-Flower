@@ -8,11 +8,13 @@ class QuestionTile extends StatelessWidget {
       {Key? key,
       required this.questionInfo,
       required this.quizId,
-      required this.questionId})
+      required this.questionId,
+      required this.editQuestion})
       : super(key: key);
   final Map<String, dynamic> questionInfo;
   final int questionId;
   final String quizId;
+  final Function editQuestion;
 
   @override
   Widget build(BuildContext context) {
@@ -58,16 +60,7 @@ class QuestionTile extends StatelessWidget {
             ],
           ),
           GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                AppRoutes.QUIZ_MANAGEMENT_EDIT_QUESTION,
-                arguments: {
-                  'quiz_id': quizId,
-                  'question_id': questionId,
-                },
-              );
-            },
+            onTap: () => editQuestion(questionId),
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(3),

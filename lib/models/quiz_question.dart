@@ -3,7 +3,7 @@ class QuizQuestion {
   String image = '';
   final String question;
   final int answer;
-  final List<String> options;
+  final List<dynamic> options;
 
   QuizQuestion(
       {required this.id,
@@ -17,11 +17,11 @@ class QuizQuestion {
 
   factory QuizQuestion.fromDocumentSnapshot(dynamic doc) {
     return QuizQuestion(
-        id: doc.data()['id'],
-        answer: doc.data()['answer'],
-        image: doc.data()['image'],
-        options: doc.data()['options'],
-        question: doc.data()['question']);
+        id: doc['id'],
+        answer: doc['answer'],
+        image: doc['image'],
+        options: doc['options'],
+        question: doc['question']);
   }
 
   static toJSON(QuizQuestion question) {

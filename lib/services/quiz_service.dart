@@ -39,6 +39,24 @@ class QuizService {
         'quiz', filters, {'questions': newQuestions});
   }
 
+  static Future<dynamic>? editQuestion(String quizID,
+      List<dynamic> newQuestions, File? image, int questionIndex) async {
+    newQuestions.last['id'] = UniqueKey().toString();
+    if (image != null) {
+      newQuestions[questionIndex]['image'] =
+          await FirebaseStorageService.uploadFile(
+              image, newQuestions.last['id'], 'question-images/$quizID');
+    }
+
+    //Get quiz document
+    List<dynamic> filters = [
+      {'name': 'id', 'value': quizID}
+    ];
+
+    return await CloudFirestoreService.update(
+        'quiz', filters, {'questions': newQuestions});
+  }
+
   static Future<dynamic> addNewQuiz(Quiz newQuiz) async {
     final filters = [
       {'name': 'title', 'value': newQuiz.title},
