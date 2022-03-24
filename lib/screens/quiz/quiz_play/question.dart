@@ -9,6 +9,7 @@ class Question extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String _correctAnswer = question['options'][question['answer']];
     return Center(
       child: Column(
         children: [
@@ -32,7 +33,7 @@ class Question extends StatelessWidget {
             question['question'].toString(),
             style: Theme.of(context).textTheme.headline5,
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 35),
           ...(question['options'] as List<dynamic>)
               .asMap()
               .entries
@@ -40,7 +41,7 @@ class Question extends StatelessWidget {
                     selectHandler: () => chooseAnswer(
                       question['answer'],
                       option.key,
-                      option.value,
+                      _correctAnswer,
                     ),
                     optionText: option.value,
                   ))

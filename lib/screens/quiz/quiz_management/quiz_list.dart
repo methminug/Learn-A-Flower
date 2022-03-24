@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/screens/quiz/quiz_management/quiz_tile.dart';
 import 'package:learn_a_flower_app/services/quiz_service.dart';
 import 'package:lottie/lottie.dart';
@@ -44,7 +45,7 @@ class _QuizListState extends State<QuizList> {
                               const Spacer(),
                               Container(
                                 margin: const EdgeInsets.fromLTRB(0, 0, 20, 10),
-                                child: TextButton(
+                                child: ElevatedButton(
                                   child: const Text("Create new quiz"),
                                   onPressed: () {
                                     Navigator.pushNamed(

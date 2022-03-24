@@ -39,7 +39,7 @@ class _ResultDialogState extends State<ResultDialog> {
             ),
             actions: [
               CupertinoDialogAction(
-                child: const Text('Next Question!'),
+                child: const Text('Next'),
                 onPressed: () => {Navigator.pop(context)},
               )
             ],
@@ -66,7 +66,7 @@ class _ResultDialogState extends State<ResultDialog> {
             ),
             actions: [
               CupertinoDialogAction(
-                child: const Text('Next Question!'),
+                child: const Text('Next'),
                 onPressed: () => {Navigator.pop(context)},
               )
             ],

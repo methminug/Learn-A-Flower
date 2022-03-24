@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/models/quiz_question.dart';
 import 'package:learn_a_flower_app/routes/app_routes.dart';
+import 'package:learn_a_flower_app/screens/common/custom_alert.dart';
 import 'package:learn_a_flower_app/services/quiz_service.dart';
 
 class NewQuestion extends StatefulWidget {
@@ -195,11 +196,9 @@ class _NewQuestionState extends State<NewQuestion> {
                   leading: _correctAnswerIcon(3),
                 ),
                 Container(
-                  margin: const EdgeInsets.fromLTRB(0, 0, 20, 10),
+                  margin: const EdgeInsets.only(top: 20),
                   child: ElevatedButton(
-                    child: Text("Add Question",
-                        style: Theme.of(context).textTheme.headline6),
-                    style: ElevatedButton.styleFrom(primary: AppColors.primary),
+                    child: const Text("Add Question"),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         List<String> _options = [];
@@ -225,10 +224,19 @@ class _NewQuestionState extends State<NewQuestion> {
                           Navigator.popAndPushNamed(
                               context, AppRoutes.QUIZ_MANAGEMENT_QUESTIONS,
                               arguments: {'quiz_info': arguments['quiz_info']});
-                          // TODO SHOW ALERT
+                          await showDialog(
+                              context: context,
+                              builder: (_) => const CustomAlert(
+                                  isSuccess: true,
+                                  alertTitle:
+                                      'New question added successfully'));
                         } else {
-                          // TODO SHOW ALERT
-                          print('Couldnt add question');
+                          await showDialog(
+                              context: context,
+                              builder: (_) => const CustomAlert(
+                                  isSuccess: false,
+                                  alertTitle:
+                                      'Unable to add question.\nPlease try again later'));
                         }
                       }
                     },

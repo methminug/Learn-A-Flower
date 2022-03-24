@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/models/quiz.dart';
 import 'package:learn_a_flower_app/routes/app_routes.dart';
+import 'package:learn_a_flower_app/screens/common/confirm_alert.dart';
+import 'package:learn_a_flower_app/screens/common/custom_alert.dart';
 import 'package:learn_a_flower_app/services/quiz_service.dart';
 
 class QuizTile extends StatelessWidget {
@@ -42,14 +44,31 @@ class QuizTile extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () async {
-                dynamic res = await QuizService.deleteQuiz(quizInfo.id);
-                if (res) {
-                  print("Deleted successfully");
-                  Navigator.popAndPushNamed(
-                      context, AppRoutes.QUIZ_MANAGEMENT_LIST);
-                } else {
-                  print("Error deleting");
-                }
+                await showDialog(
+                    context: context,
+                    builder: (_) => ConfirmAlert(
+                        alertTitle:
+                            'Are you sure you want to delete this quiz?',
+                        onConfirm: () async {
+                          dynamic res =
+                              await QuizService.deleteQuiz(quizInfo.id);
+                          if (res) {
+                            await showDialog(
+                                context: context,
+                                builder: (_) => const CustomAlert(
+                                    isSuccess: true,
+                                    alertTitle: 'Quiz deleted successfully'));
+                            Navigator.popAndPushNamed(
+                                context, AppRoutes.QUIZ_MANAGEMENT_LIST);
+                          } else {
+                            await showDialog(
+                                context: context,
+                                builder: (_) => const CustomAlert(
+                                    isSuccess: false,
+                                    alertTitle:
+                                        'Unable to delete quiz.\nPlease try again later'));
+                          }
+                        }));
               },
               child: Container(
                 decoration: BoxDecoration(

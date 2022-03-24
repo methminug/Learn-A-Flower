@@ -66,7 +66,6 @@ class CloudFirestoreService {
         });
       });
     }).catchError((error) {
-      print(error);
       result = false;
     });
 

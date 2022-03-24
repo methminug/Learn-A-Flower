@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/models/quiz.dart';
 import 'package:learn_a_flower_app/routes/app_routes.dart';
+import 'package:learn_a_flower_app/screens/common/custom_alert.dart';
 import 'package:learn_a_flower_app/services/quiz_service.dart';
 import 'package:lottie/lottie.dart';
 import 'package:select_form_field/select_form_field.dart';
@@ -41,7 +42,9 @@ class _NewQuestionState extends State<NewQuiz> {
         child: Form(
           key: _formKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const SizedBox(height: 50),
               Container(
                 padding: const EdgeInsets.all(15),
                 height: 250,
@@ -77,37 +80,41 @@ class _NewQuestionState extends State<NewQuiz> {
                   }),
                 ),
               ),
-              const SizedBox(
-                height: 100,
-              ),
-              Container(
-                margin: const EdgeInsets.fromLTRB(0, 0, 20, 10),
-                child: ElevatedButton(
-                  child: Text("Create Quiz"),
-                  style: ElevatedButton.styleFrom(primary: AppColors.primary),
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      Quiz newQuiz = Quiz.newQuiz(
-                          id: UniqueKey().toString(),
-                          title: _titleController.text,
-                          level: int.parse(_levelController.text));
+              const SizedBox(height: 50),
+              ElevatedButton(
+                child: Text("Create Quiz", style: TextStyle(fontSize: 20)),
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    Quiz newQuiz = Quiz.newQuiz(
+                        id: UniqueKey().toString(),
+                        title: _titleController.text,
+                        level: int.parse(_levelController.text));
 
-                      dynamic result = await QuizService.addNewQuiz(newQuiz);
-                      if (result) {
-                        // TODO SHOW ALERT
-                        Navigator.pop(context);
-                        Navigator.popAndPushNamed(
-                            context, AppRoutes.QUIZ_MANAGEMENT_LIST);
-                      } else if (result.runtimeType == String) {
-                        // TODO SHOW ALERT
-                        print(result);
-                      } else {
-                        // TODO SHOW ALERT
-                        print('Error adding question');
-                      }
+                    dynamic result = await QuizService.addNewQuiz(newQuiz);
+                    if (result) {
+                      await showDialog(
+                          context: context,
+                          builder: (_) => const CustomAlert(
+                              isSuccess: true,
+                              alertTitle: 'New quiz added successfully'));
+                      Navigator.pop(context);
+                      Navigator.popAndPushNamed(
+                          context, AppRoutes.QUIZ_MANAGEMENT_LIST);
+                    } else if (result.runtimeType == String) {
+                      await showDialog(
+                          context: context,
+                          builder: (_) => CustomAlert(
+                              isSuccess: false, alertTitle: result.toString()));
+                    } else {
+                      await showDialog(
+                          context: context,
+                          builder: (_) => const CustomAlert(
+                              isSuccess: false,
+                              alertTitle:
+                                  'Unable to add quiz.\nPlease try again later'));
                     }
-                  },
-                ),
+                  }
+                },
               ),
             ],
           ),
