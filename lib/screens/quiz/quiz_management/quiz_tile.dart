@@ -45,6 +45,8 @@ class QuizTile extends StatelessWidget {
                 dynamic res = await QuizService.deleteQuiz(quizInfo.id);
                 if (res) {
                   print("Deleted successfully");
+                  Navigator.popAndPushNamed(
+                      context, AppRoutes.QUIZ_MANAGEMENT_LIST);
                 } else {
                   print("Error deleting");
                 }

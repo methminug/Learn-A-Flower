@@ -10,7 +10,7 @@ class QuizService {
     List<dynamic> sortOrder = [
       {
         'field': 'level',
-        'isDescending': false,
+        'isDescending': true,
       }
     ];
 
@@ -39,8 +39,26 @@ class QuizService {
         'quiz', filters, {'questions': newQuestions});
   }
 
+  static Future<dynamic> addNewQuiz(Quiz newQuiz) async {
+    final filters = [
+      {'name': 'title', 'value': newQuiz.title},
+      {'name': 'level', 'value': newQuiz.level}
+    ];
+    final responses = await CloudFirestoreService.read('quiz', filters);
+
+    if (responses.isNotEmpty) {
+      return 'A quiz by this name and level already exists!';
+    }
+
+    dynamic res =
+        await CloudFirestoreService.write('quiz', Quiz.toJSON(newQuiz));
+
+    return res;
+  }
+
   static Future<dynamic>? deleteQuiz(String quizID) async {
-    await FirebaseStorageService.deleteFile('question-images/$quizID', '');
+    await FirebaseStorageService.deleteAllFilesInQuizDirectory(
+        'question-images/$quizID');
 
     //Get quiz document
     List<dynamic> filters = [

@@ -24,15 +24,15 @@ class CloudFirestoreService {
     return collectionRef;
   }
 
-  static Future<dynamic> write(
-      String collection, dynamic payload, String successMessage) async {
+  static Future<dynamic> write(String collection, dynamic payload) async {
     dynamic res;
     CollectionReference collectionRef =
         FirebaseFirestore.instance.collection(collection);
-    await collectionRef.add(payload).then((value) {
-      res = successMessage;
+    await collectionRef.doc(payload['id']).set(payload).then((value) {
+      res = true;
     }).catchError((error) {
       print(error);
+      res = false;
     });
     return res;
   }
@@ -115,5 +115,16 @@ class FirebaseStorageService {
         .delete()
         .then((value) => print("File deleted successfully"))
         .catchError((e) => print(e));
+  }
+
+  static Future<void> deleteAllFilesInQuizDirectory(String filePath) async {
+    fireBaseStorage.ref().child('/$filePath/').listAll().then((result) => {
+          result.items.forEach((imageRef) {
+            imageRef
+                .delete()
+                .then((value) => (value) => print("File deleted successfully"))
+                .catchError((e) => print(e));
+          })
+        });
   }
 }

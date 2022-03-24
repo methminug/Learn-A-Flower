@@ -203,8 +203,6 @@ class _NewQuestionState extends State<NewQuestion> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         List<String> _options = [];
-                        // _choiceControllers
-                        //     .map((controller) => _options.add(controller.text));
 
                         _choiceControllers.forEach((element) {
                           _options.add(element.text);

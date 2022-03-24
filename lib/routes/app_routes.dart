@@ -2,6 +2,7 @@
 
 class AppRoutes {
   static const HOME = '/home';
+  static const QUIZ_PLAY = '/quiz-play';
   static const QUIZ_MANAGEMENT_LIST = '/quiz-list';
   static const QUIZ_MANAGEMENT_QUESTIONS = '/quiz-questions';
   static const QUIZ_MANAGEMENT_NEW_QUIZ = '/new-quiz';

@@ -83,8 +83,7 @@ class _NewQuestionState extends State<NewQuiz> {
               Container(
                 margin: const EdgeInsets.fromLTRB(0, 0, 20, 10),
                 child: ElevatedButton(
-                  child: Text("Create Quiz",
-                      style: Theme.of(context).textTheme.headline5),
+                  child: Text("Create Quiz"),
                   style: ElevatedButton.styleFrom(primary: AppColors.primary),
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {

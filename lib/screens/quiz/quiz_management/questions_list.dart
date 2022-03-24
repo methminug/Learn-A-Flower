@@ -26,13 +26,18 @@ class _QuestionListState extends State<QuestionList> {
       onRefresh: _onRefresh,
       child: Scaffold(
         appBar: AppBar(title: Text(arguments['quiz_info'].title)),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            //TODO IMPLMENT PLAY FEATURE
-          },
-          child: const Icon(Icons.play_arrow_rounded),
-          tooltip: 'Preview this quiz',
-        ),
+        floatingActionButton: questions.isEmpty
+            ? const SizedBox()
+            : FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.QUIZ_PLAY, arguments: {
+                    'quiz_questions': questions,
+                    'quiz_title': arguments['quiz_info'].title
+                  });
+                },
+                child: const Icon(Icons.play_arrow_rounded),
+                tooltip: 'Preview this quiz',
+              ),
         backgroundColor: AppColors.appBackground,
         body: Padding(
           padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
@@ -72,10 +77,11 @@ class _QuestionListState extends State<QuestionList> {
                 } else if (questions.length + 1 == 1) {
                   return Column(
                     children: [
-                      Container(
+                      SizedBox(
                           height: 250,
                           width: 250,
-                          child: Image.asset("assets/animations/addData.gif")),
+                          child:
+                              Lottie.asset('assets/animations/addData.json')),
                       Text(
                         'No questions',
                         style: TextStyle(
