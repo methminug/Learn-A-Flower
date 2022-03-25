@@ -89,7 +89,12 @@ class _NewQuestionState extends State<NewQuiz> {
                         level: int.parse(_levelController.text));
 
                     dynamic result = await QuizService.addNewQuiz(newQuiz);
-                    if (result) {
+                    if (result.runtimeType == String) {
+                      await showDialog(
+                          context: context,
+                          builder: (_) => CustomAlert(
+                              isSuccess: false, alertTitle: result.toString()));
+                    } else if (result) {
                       await showDialog(
                           context: context,
                           builder: (_) => const CustomAlert(
@@ -98,11 +103,6 @@ class _NewQuestionState extends State<NewQuiz> {
                       Navigator.pop(context);
                       Navigator.popAndPushNamed(
                           context, AppRoutes.QUIZ_MANAGEMENT_LIST);
-                    } else if (result.runtimeType == String) {
-                      await showDialog(
-                          context: context,
-                          builder: (_) => CustomAlert(
-                              isSuccess: false, alertTitle: result.toString()));
                     } else {
                       await showDialog(
                           context: context,
