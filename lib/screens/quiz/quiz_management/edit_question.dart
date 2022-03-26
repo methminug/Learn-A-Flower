@@ -20,49 +20,57 @@ class _EditQuestionState extends State<EditQuestion> {
   final ImagePicker _imagePicker = ImagePicker();
   late Future<XFile?> pickedFile = Future.value(null);
   File? imageFile = File('');
-  bool firstLoad = true;
   final String errorText = 'This field is required';
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _questionController = TextEditingController();
+  final List<TextEditingController> _choiceControllers = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
+
+  bool initialLoad = true;
+  int _correctAnswer = 0;
+
+  Widget _correctAnswerIcon(int iconIndex) {
+    return InkResponse(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Answer',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: _correctAnswer == iconIndex
+                      ? AppColors.primaryDark
+                      : Colors.transparent)),
+          Icon(
+            Icons.check_circle,
+            color: _correctAnswer == iconIndex
+                ? AppColors.primaryDark
+                : Colors.grey[400],
+          ),
+        ],
+      ),
+      onTap: () => setState(() {
+        _correctAnswer = iconIndex;
+      }),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     dynamic arguments = ModalRoute.of(context)!.settings.arguments as dynamic;
     QuizQuestion thisQuestion = QuizQuestion.fromDocumentSnapshot(
         arguments['quiz_info'].questions[arguments['question_id']]);
-    final TextEditingController _questionController =
-        TextEditingController(text: thisQuestion.question);
-    final List<TextEditingController> _choiceControllers = [
-      TextEditingController(text: thisQuestion.options[0]),
-      TextEditingController(text: thisQuestion.options[1]),
-      TextEditingController(text: thisQuestion.options[2]),
-      TextEditingController(text: thisQuestion.options[3])
-    ];
 
-    int _correctAnswer = thisQuestion.answer;
-
-    Widget _correctAnswerIcon(int iconIndex) {
-      return InkResponse(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Answer',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: _correctAnswer == iconIndex
-                        ? AppColors.primaryDark
-                        : Colors.transparent)),
-            Icon(
-              Icons.check_circle,
-              color: _correctAnswer == iconIndex
-                  ? AppColors.primaryDark
-                  : Colors.grey[400],
-            ),
-          ],
-        ),
-        onTap: () => setState(() {
-          _correctAnswer = iconIndex;
-        }),
-      );
+    if (initialLoad) {
+      initialLoad = false;
+      _correctAnswer = thisQuestion.answer;
+      _questionController.text = thisQuestion.question;
+      for (var i = 0; i < _choiceControllers.length; i++) {
+        _choiceControllers[i].text = thisQuestion.options[i];
+      }
     }
 
     return Scaffold(
