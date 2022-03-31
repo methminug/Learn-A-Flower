@@ -5,14 +5,14 @@ import 'package:learn_a_flower_app/screens/quiz/quiz_management/quiz_tile.dart';
 import 'package:learn_a_flower_app/services/quiz_service.dart';
 import 'package:lottie/lottie.dart';
 
-class QuizList extends StatefulWidget {
-  const QuizList({Key? key}) : super(key: key);
+class QuizPlayList extends StatefulWidget {
+  const QuizPlayList({Key? key}) : super(key: key);
 
   @override
-  State<QuizList> createState() => _QuizListState();
+  State<QuizPlayList> createState() => _QuizPlayListState();
 }
 
-class _QuizListState extends State<QuizList> {
+class _QuizPlayListState extends State<QuizPlayList> {
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 
@@ -34,37 +34,16 @@ class _QuizListState extends State<QuizList> {
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
                   child: ListView.builder(
-                      itemCount: snapshot.data!.length + 1,
+                      itemCount: snapshot.data!.length,
                       itemBuilder: (BuildContext context, int index) {
-                        if (index == 0) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              const Spacer(),
-                              Container(
-                                margin: const EdgeInsets.fromLTRB(0, 0, 20, 10),
-                                child: ElevatedButton(
-                                  child: const Text("Create new quiz"),
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                      context,
-                                      AppRoutes.QUIZ_MANAGEMENT_NEW_QUIZ,
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          );
-                        } else {
-                          return Container(
-                            margin: const EdgeInsets.only(
-                                left: 20, top: 10, right: 20, bottom: 10),
-                            child: QuizTile(
-                              quizInfo: snapshot.data![index - 1],
-                              isAdmin: true,
-                            ),
-                          );
-                        }
+                        return Container(
+                          margin: const EdgeInsets.only(
+                              left: 20, top: 10, right: 20, bottom: 10),
+                          child: QuizTile(
+                            quizInfo: snapshot.data![index],
+                            isAdmin: false,
+                          ),
+                        );
                       }),
                 );
               } else {

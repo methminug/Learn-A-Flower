@@ -25,6 +25,7 @@ import 'package:learn_a_flower_app/screens/my_plants/user/my_flower_details.dart
 import 'package:learn_a_flower_app/screens/my_plants/user/my_flower_list.dart';
 import 'package:learn_a_flower_app/screens/quiz/quiz_management/quiz_list.dart';
 import 'package:learn_a_flower_app/screens/quiz/quiz_play/quiz_play.dart';
+import 'package:learn_a_flower_app/screens/quiz/quiz_play/quiz_play_list.dart';
 
 class RouteGenerator {
   static dynamic getRoute() {
@@ -32,26 +33,36 @@ class RouteGenerator {
       AppRoutes.HOME: (context) => const MyHomePage(title: 'Learn A Flower'),
       AppRoutes.ADMIN_DASHBOARD: (context) => AdminDashboard(),
       AppRoutes.USER_DASHBOARD: (context) => UserDashboard(),
+
+      //FLOWERS PAGES
       AppRoutes.FLOWER_LIST: (context) => const FlowerList(),
       AppRoutes.FLOWER_DETAILS: (context) => const FlowerDetails(),
       AppRoutes.ADMIN_FLOWER_LIST: (context) => const FlowerDashboardScreen(),
       AppRoutes.ADD_FLOWER: (context) => const AddFlowerScreen(),
       AppRoutes.EDIT_FLOWER: (context) => const EditFlowerScreen(),
+
+      //DISEASES PAGES
       AppRoutes.DISEASE_LIST: (context) => const DiseaseList(),
       AppRoutes.DISEASE_DETAILS: (context) => const DiseaseDetails(),
       AppRoutes.ADMIN_DISEASE_LIST: (context) => const DiseaseDashboard(),
       AppRoutes.ADD_DISEASE: (context) => const AddDiseaseScreen(),
       AppRoutes.EDIT_DISEASE: (context) => const EditDiseaseScreen(),
+
+      //MY FLOWERS PAGES
       AppRoutes.MY_FLOWERS_LIST: (context) => const MyFlowerList(),
       AppRoutes.MY_FLOWER_DETAILS: (context) => const MyFlowerDetails(),
       AppRoutes.ADMIN_MY_FLOWERS_LIST: (context) => const MyPlantsDashboard(),
       AppRoutes.ADD_MY_FLOWER: (context) => const AddMyFlowerScreen(),
       AppRoutes.EDIT_MY_FLOWER: (context) => const EditMyFlowerScreen(),
+
+      //QUIZ PAGES
       AppRoutes.QUIZ_MANAGEMENT_LIST: (context) =>
           const AppLayout(child: QuizList(), title: 'Quiz Management'),
       AppRoutes.QUIZ_MANAGEMENT_QUESTIONS: (context) => const QuestionList(),
       AppRoutes.QUIZ_MANAGEMENT_NEW_QUESTION: (context) => const NewQuestion(),
       AppRoutes.QUIZ_MANAGEMENT_NEW_QUIZ: (context) => const NewQuiz(),
+      AppRoutes.QUIZ_PLAY_LIST: (context) =>
+          const AppLayout(child: QuizPlayList(), title: 'Play a Quiz'),
       AppRoutes.QUIZ_PLAY: (context) => const QuizPlay(),
       AppRoutes.QUIZ_MANAGEMENT_EDIT_QUESTION: (context) =>
           const EditQuestion(),

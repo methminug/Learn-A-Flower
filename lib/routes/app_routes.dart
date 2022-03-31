@@ -24,6 +24,7 @@ class AppRoutes {
   static const EDIT_MY_FLOWER = '/edit-my-flower';
 
   static const QUIZ_PLAY = '/quiz-play';
+  static const QUIZ_PLAY_LIST = '/quiz-play-list';
   static const QUIZ_MANAGEMENT_LIST = '/quiz-list';
   static const QUIZ_MANAGEMENT_QUESTIONS = '/quiz-questions';
   static const QUIZ_MANAGEMENT_NEW_QUIZ = '/new-quiz';
