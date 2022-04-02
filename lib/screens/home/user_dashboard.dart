@@ -46,11 +46,11 @@ class UserDashboard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                 Icon(
-                      Icons.local_florist_sharp,
-                      color: Colors.indigo,
-                      size: 30,
-                    ),
+                  Icon(
+                    Icons.local_florist_sharp,
+                    color: Colors.indigo,
+                    size: 30,
+                  ),
                 ],
               ),
               Expanded(
@@ -81,7 +81,8 @@ class UserDashboard extends StatelessWidget {
                       children: [
                         _cardMenu(
                           onTap: () {
-                            Navigator.of(context).pushNamed(AppRoutes.FLOWER_LIST);
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.FLOWER_LIST);
                           },
                           icon: 'assets/manel.png',
                           title: 'Flowers',
@@ -90,7 +91,8 @@ class UserDashboard extends StatelessWidget {
                         ),
                         _cardMenu(
                           onTap: () {
-                            Navigator.of(context).pushNamed(AppRoutes.DISEASE_LIST);
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.DISEASE_LIST);
                           },
                           icon: 'assets/disease.png',
                           title: 'Disease',
@@ -104,6 +106,10 @@ class UserDashboard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         _cardMenu(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.QUIZ_PLAY_LIST);
+                          },
                           icon: 'assets/quiz.png',
                           title: 'Quiz',
                           color: Colors.indigoAccent,
@@ -111,7 +117,8 @@ class UserDashboard extends StatelessWidget {
                         ),
                         _cardMenu(
                           onTap: () {
-                            Navigator.of(context).pushNamed(AppRoutes.MY_FLOWERS_LIST);
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.MY_FLOWERS_LIST);
                           },
                           icon: 'assets/my.png',
                           title: 'My Flowers',
@@ -151,11 +158,15 @@ class UserDashboard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image.asset(icon, height: 80,),
+            Image.asset(
+              icon,
+              height: 80,
+            ),
             const SizedBox(height: 10),
             Text(
               title,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: fontColor),
+              style: TextStyle(
+                  fontSize: 15, fontWeight: FontWeight.bold, color: fontColor),
             )
           ],
         ),

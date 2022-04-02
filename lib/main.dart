@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/routes/route_generator.dart';
-import 'package:learn_a_flower_app/screens/home/my_home_page.dart';
 import 'package:learn_a_flower_app/screens/login_screen.dart';
-import 'package:learn_a_flower_app/screens/quiz/quiz_management/quiz_list.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //TODO: check
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -18,12 +17,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Learn A Flower',
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
         primaryColor: AppColors.primary,
       ),
-      debugShowCheckedModeBanner: false,
       routes: RouteGenerator.getRoute(),
       //Should add auth logic to home:
       //home: MyHomePage(title: 'Learn A Flower'),
