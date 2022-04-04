@@ -1,14 +1,12 @@
-//Feel free to change!
-
 import 'package:flutter/material.dart';
 
 class AppColors {
   static const primary = Color(0xFF97DBAE);
+  static const primaryDark = Color.fromARGB(255, 106, 192, 135);
   static const success = Color(0xFFC3E5AE);
-  static const fail = Color.fromARGB(255, 255, 103, 115);
+  static const fail = Color.fromARGB(255, 236, 131, 140);
   static const warning = Color(0xFFF1E1A6);
-
-
+  static const appBackground = Color.fromARGB(255, 243, 243, 243);
 
   static const darkerGreen = Color(0xFF163A5F);
   static const darkGreen = Color(0xFF1D566E);
@@ -24,10 +22,8 @@ class AppColors {
   static const Color lightBlueGreen = const Color(0xFF53DFD1);
   static const Color oliveGreen = const Color(0xFF50655B);
 
-
   static const Color firebaseGrey = const Color(0xFFECEFF1);
   static const Color googleBackground = const Color(0xFF4285F4);
-
 
   static const Color light = const Color(0xffc6ff00);
   static const Color dark = const Color(0xff92E3A9);

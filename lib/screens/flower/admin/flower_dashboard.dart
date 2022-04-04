@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/models/flower.dart';
 import 'package:learn_a_flower_app/routes/app_routes.dart';
+import 'package:learn_a_flower_app/screens/flower/admin/widgets/form_image.dart';
+import 'package:learn_a_flower_app/screens/flower/admin/widgets/text_content.dart';
 import 'package:learn_a_flower_app/services/flower_service.dart';
 
 class FlowerDashboardScreen extends StatefulWidget {
@@ -100,15 +102,11 @@ class _FlowerDashboardScreenState extends State<FlowerDashboardScreen> {
                                           padding: const EdgeInsets.only(right: 10),
                                           child: Row(
                                             children: [
-                                              imageBox(
-                                                  context, retrievedFlowerList![index].flowerImage),
+                                              FormImageBox(imageUrl: retrievedFlowerList![index].flowerImage, width: 125, height: 120),
                                               const SizedBox(width: 20.0,),
                                               Expanded(
-                                                  child: textContent(
-                                                      context,
-                                                      retrievedFlowerList![index].flowerName,
-                                                      retrievedFlowerList![index].flowerDescription
-                                                  ))
+                                                  child: TextContent(flowerName:  retrievedFlowerList![index].flowerName, flowerDescription:  retrievedFlowerList![index].flowerDescription)
+                                                  )
                                             ],
                                           ),
                                         ),
@@ -172,54 +170,35 @@ class _FlowerDashboardScreenState extends State<FlowerDashboardScreen> {
     flowerList = flowerService.getFlowers();
   }
 
-  Widget imageBox(BuildContext context, String flowerImage) {
-    return Container(
-      width: 125.0,
-      height: 120.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        border: Border.all(
-          color: const Color.fromRGBO(233, 233, 233, 1),
-        ),
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: NetworkImage(
-            flowerImage,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget textContent(
-      BuildContext context, String flowerName, String flowerDescription) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          flowerName,
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 18.0,
-          ),
-        ),
-        const SizedBox(
-          height: 5.0,
-        ),
-        Text(
-          flowerDescription,
-          maxLines: 3,
-          overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            color: Color.fromRGBO(139, 144, 165, 1),
-          ),
-        ),
-        const SizedBox(
-          height: 5.0,
-        ),
-      ],
-    );
-  }
+  // Widget textContent(
+  //     BuildContext context, String flowerName, String flowerDescription) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.stretch,
+  //     children: [
+  //       Text(
+  //         flowerName,
+  //         maxLines: 2,
+  //         overflow: TextOverflow.ellipsis,
+  //         style: const TextStyle(
+  //           fontWeight: FontWeight.w600,
+  //           fontSize: 18.0,
+  //         ),
+  //       ),
+  //       const SizedBox(
+  //         height: 5.0,
+  //       ),
+  //       Text(
+  //         flowerDescription,
+  //         maxLines: 3,
+  //         overflow: TextOverflow.ellipsis,
+  //         style: const TextStyle(
+  //           color: Color.fromRGBO(139, 144, 165, 1),
+  //         ),
+  //       ),
+  //       const SizedBox(
+  //         height: 5.0,
+  //       ),
+  //     ],
+  //   );
+  // }
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/models/flower.dart';
+import 'package:learn_a_flower_app/screens/flower/admin/widgets/form_image.dart';
+import 'package:learn_a_flower_app/screens/flower/admin/widgets/form_text.dart';
+import 'package:learn_a_flower_app/screens/flower/admin/widgets/form_text_field.dart';
 import 'package:learn_a_flower_app/services/flower_service.dart';
 
 final inputDecoration = InputDecoration(
@@ -56,8 +59,8 @@ class _EditFlowerScreenState extends State<EditFlowerScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    formText(context,  'Flower Image URL'),
-                    imageBox(context),
+                    const FormText(text: 'Flower Image URL'),
+                  FormImageBox(imageUrl: imageUrl, width: 150.0, height: 100.0,),
                   ],
                 ),
                 const SizedBox(height: 8.0),
@@ -79,17 +82,17 @@ class _EditFlowerScreenState extends State<EditFlowerScreen> {
                   },
                 ),
                 const SizedBox(height: 24.0),
-                formText(context, 'Flower Name'),
+                const FormText(text: 'Flower Name'),
                 const SizedBox(height: 8.0,),
-                formTextField(context, flowerNameController, 1, 'Enter the flower name', 'Please enter flower name'),
+                FormTextField(controller: flowerNameController, lineCount: 1, hintText: 'Enter flower name', validator: 'Please enter flower name', ),
                 const SizedBox(height: 24.0,),
-                formText(context,  'Flower Description'),
+                const FormText(text: 'Flower Description'),
                 const SizedBox(height: 8.0,),
-                formTextField(context, flowerDescriptionController, 5, 'Enter the flower description', 'Please enter flower description'),
+                FormTextField(controller: flowerDescriptionController, lineCount: 5, hintText: 'Enter flower description', validator: 'Please enter flower description', ),
                 const SizedBox(height: 24.0,),
-                formText(context, 'Flower More Details URL'),
+                const FormText(text: 'Flower More Details URL'),
                 const SizedBox(height: 8.0,),
-                formTextField(context, flowerInfoURLController, 1, 'Enter flower more details url', 'Please enter flower details url'),
+                FormTextField(controller: flowerInfoURLController, lineCount: 1, hintText: 'Enter flower more details url', validator: 'Please enter flower details url', ),
                 const SizedBox(height: 24.0,),
                 !isLoading
                     ? Center(
@@ -162,56 +165,4 @@ class _EditFlowerScreenState extends State<EditFlowerScreen> {
     flowerDescriptionController = TextEditingController(text: flowerData.flowerDescription);
     flowerInfoURLController = TextEditingController(text: flowerData.flowerInfoURL);
   }
-
-  //Image of flower
-  Widget imageBox(BuildContext context){
-    return Container(
-      width: 150.0,
-      height: 100.0,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        border: Border.all(
-          color: const Color.fromRGBO(233, 233, 233, 1),
-        ),
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: NetworkImage(
-            imageUrl,
-          ),
-        ),
-      ),
-    );
-  }
-
-  //Widget for Text
-  Widget formText(BuildContext context, String text){
-    return Text(
-      text,
-      style: const TextStyle(
-        color: AppColors.black,
-        fontSize: 20.0,
-        letterSpacing: 1,
-        fontWeight: FontWeight.w500,
-      ),
-    );
-  }
-
-  //Widget for TextField
-  Widget formTextField(BuildContext context, TextEditingController controller, int lineCount, String hintText, String validator){
-    return TextFormField(
-      controller: controller,
-      keyboardType: TextInputType.text,
-      maxLines: lineCount,
-      textAlign: TextAlign.justify,
-      decoration: inputDecoration.copyWith(
-          hintText: hintText),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return validator;
-        }
-        return null;
-      },
-    );
-  }
 }
-
