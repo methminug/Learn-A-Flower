@@ -1,4 +1,3 @@
-
 import 'package:learn_a_flower_app/routes/app_routes.dart';
 import 'package:learn_a_flower_app/screens/disease/admin/add_disease.dart';
 import 'package:learn_a_flower_app/screens/disease/admin/dashboard.dart';
@@ -8,7 +7,6 @@ import 'package:learn_a_flower_app/screens/disease/user/disease_list.dart';
 import 'package:learn_a_flower_app/screens/flower/admin/add_flower.dart';
 import 'package:learn_a_flower_app/screens/flower/admin/edit_flower.dart';
 import 'package:learn_a_flower_app/screens/flower/admin/flower_dashboard.dart';
-import 'package:learn_a_flower_app/screens/flower/user/flower_details.dart';
 import 'package:learn_a_flower_app/screens/flower/user/flower_list.dart';
 import 'package:learn_a_flower_app/screens/home/admin_dashboard.dart';
 import 'package:learn_a_flower_app/screens/home/my_home_page.dart';
@@ -24,13 +22,12 @@ class RouteGenerator {
   static dynamic getRoute() {
     return {
       AppRoutes.HOME: (context) => const MyHomePage(title: 'Learn A Flower'),
-      AppRoutes.ADMIN_DASHBOARD: (context) => AdminDashboard(),
-      AppRoutes.USER_DASHBOARD: (context) =>  UserDashboard(),
+      AppRoutes.ADMIN_DASHBOARD: (context) => const AdminDashboard(),
+      AppRoutes.USER_DASHBOARD: (context) =>  const UserDashboard(),
 
       AppRoutes.QUIZ_MANAGEMENT_LIST: (context) => const QuizList(),
 
       AppRoutes.FLOWER_LIST: (context) => const FlowerList(),
-      AppRoutes.FLOWER_DETAILS: (context) => const FlowerDetails(),
       AppRoutes.ADMIN_FLOWER_LIST: (context) =>  const FlowerDashboardScreen(),
       AppRoutes.ADD_FLOWER: (context) => const AddFlowerScreen(),
       AppRoutes.EDIT_FLOWER: (context) => const EditFlowerScreen(),

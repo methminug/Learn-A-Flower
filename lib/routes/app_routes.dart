@@ -9,7 +9,6 @@ class AppRoutes {
   static const QUIZ_MANAGEMENT_LIST = '/quiz-list';
 
   static const FLOWER_LIST = '/flower-list';
-  static const FLOWER_DETAILS = '/flower-details';
   static const ADMIN_FLOWER_LIST = '/admin-flower-list';
   static const ADD_FLOWER = '/add-flower';
   static const EDIT_FLOWER = '/edit-flower';

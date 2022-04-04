@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/routes/route_generator.dart';
 import 'package:learn_a_flower_app/screens/home/my_home_page.dart';
-import 'package:learn_a_flower_app/screens/login_screen.dart';
+import 'screens/login/login_screen.dart';
 import 'package:learn_a_flower_app/screens/quiz/quiz_management/quiz_list.dart';
 
 void main() async{
