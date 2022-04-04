@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn_a_flower_app/helpers/colors.dart';
 
 class CustomFormField extends StatelessWidget {
   const CustomFormField({
@@ -24,6 +25,7 @@ class CustomFormField extends StatelessWidget {
         super(key: key);
 
   final TextEditingController _emailController;
+
   final FocusNode _emailFocusNode;
   final TextInputType _keyboardType;
   final TextInputAction _inputAction;
@@ -54,7 +56,7 @@ class CustomFormField extends StatelessWidget {
         labelStyle: const TextStyle(color: Colors.black),
         hintText: _hint,
         hintStyle: TextStyle(
-          color: Colors.green.withOpacity(0.5),
+          color: AppColors.blueGreen.withOpacity(0.5),
         ),
         errorStyle: const TextStyle(
           color: Colors.redAccent,
@@ -63,14 +65,14 @@ class CustomFormField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: const BorderSide(
-            color: Colors.green,
+            color: AppColors.blueGreen,
             width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide(
-            color: Colors.green.withOpacity(0.5),
+            color: AppColors.blueGreen.withOpacity(0.5),
           ),
         ),
         errorBorder: OutlineInputBorder(
