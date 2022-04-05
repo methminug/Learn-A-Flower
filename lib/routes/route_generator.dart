@@ -1,11 +1,10 @@
 import 'package:learn_a_flower_app/routes/app_routes.dart';
 import 'package:learn_a_flower_app/screens/common/app_layout.dart';
-import 'package:learn_a_flower_app/screens/home/my_home_page.dart';
+import 'package:learn_a_flower_app/screens/home/admin_dashboard.dart';
 import 'package:learn_a_flower_app/screens/quiz/quiz_management/edit_question.dart';
 import 'package:learn_a_flower_app/screens/quiz/quiz_management/new_question.dart';
 import 'package:learn_a_flower_app/screens/quiz/quiz_management/new_quiz.dart';
 import 'package:learn_a_flower_app/screens/quiz/quiz_management/questions_list.dart';
-
 import 'package:learn_a_flower_app/screens/disease/admin/add_disease.dart';
 import 'package:learn_a_flower_app/screens/disease/admin/dashboard.dart';
 import 'package:learn_a_flower_app/screens/disease/admin/edit_disease.dart';
@@ -14,9 +13,7 @@ import 'package:learn_a_flower_app/screens/disease/user/disease_list.dart';
 import 'package:learn_a_flower_app/screens/flower/admin/add_flower.dart';
 import 'package:learn_a_flower_app/screens/flower/admin/edit_flower.dart';
 import 'package:learn_a_flower_app/screens/flower/admin/flower_dashboard.dart';
-import 'package:learn_a_flower_app/screens/flower/user/flower_details.dart';
 import 'package:learn_a_flower_app/screens/flower/user/flower_list.dart';
-import 'package:learn_a_flower_app/screens/home/admin_dashboard.dart';
 import 'package:learn_a_flower_app/screens/home/user_dashboard.dart';
 import 'package:learn_a_flower_app/screens/my_plants/admin/add_my_flowers.dart';
 import 'package:learn_a_flower_app/screens/my_plants/admin/dashboard.dart';
@@ -30,13 +27,11 @@ import 'package:learn_a_flower_app/screens/quiz/quiz_play/quiz_play_list.dart';
 class RouteGenerator {
   static dynamic getRoute() {
     return {
-      AppRoutes.HOME: (context) => const MyHomePage(title: 'Learn A Flower'),
-      AppRoutes.ADMIN_DASHBOARD: (context) => AdminDashboard(),
-      AppRoutes.USER_DASHBOARD: (context) => UserDashboard(),
+      AppRoutes.ADMIN_DASHBOARD: (context) => const AdminDashboard(),
+      AppRoutes.USER_DASHBOARD: (context) =>  const UserDashboard(),
 
       //FLOWERS PAGES
       AppRoutes.FLOWER_LIST: (context) => const FlowerList(),
-      AppRoutes.FLOWER_DETAILS: (context) => const FlowerDetails(),
       AppRoutes.ADMIN_FLOWER_LIST: (context) => const FlowerDashboardScreen(),
       AppRoutes.ADD_FLOWER: (context) => const AddFlowerScreen(),
       AppRoutes.EDIT_FLOWER: (context) => const EditFlowerScreen(),

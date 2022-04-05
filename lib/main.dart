@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/routes/route_generator.dart';
-import 'package:learn_a_flower_app/screens/login_screen.dart';
+import 'screens/login/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 

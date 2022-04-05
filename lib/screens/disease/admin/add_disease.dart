@@ -3,10 +3,8 @@ import 'package:learn_a_flower_app/models/disease.dart';
 import 'package:learn_a_flower_app/services/disease_service.dart';
 
 const textStyle = TextStyle(
-  color: Colors.white,
-  fontSize: 22.0,
-  letterSpacing: 1,
-  fontWeight: FontWeight.bold,
+  color: Colors.black,
+  fontSize: 20.0,
 );
 
 final inputDecoration = InputDecoration(
@@ -117,10 +115,15 @@ class _AddDiseaseScreenState extends State<AddDiseaseScreen> {
                     ? Center(
                         child: ElevatedButton(
                           style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                               Colors.lightGreen,
+                              ),
                               minimumSize: MaterialStateProperty.all(
-                                  const Size(200, 50)),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  const Color.fromARGB(255, 83, 80, 80))),
+                                  const Size(250, 50)),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(10)))),
                           onPressed: (() async {
                             if (_formKey.currentState!.validate()) {
                               DiseaseService diseasesService =
@@ -132,7 +135,7 @@ class _AddDiseaseScreenState extends State<AddDiseaseScreen> {
                               setState(() {
                                 isLoading = true;
                               });
-                              await diseasesService.addDisease(disease);
+                              await DiseaseService.addDisease(disease);
                               setState(() {
                                 isLoading = false;
                               });

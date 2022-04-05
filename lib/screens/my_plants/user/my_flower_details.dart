@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:learn_a_flower_app/models/disease.dart';
 import 'package:learn_a_flower_app/models/myFlower.dart';
 
 class MyFlowerDetails extends StatefulWidget {
@@ -13,7 +12,7 @@ class _MyFlowerDetailsState extends State<MyFlowerDetails> {
 
   @override
   Widget build(BuildContext context) {
-    MyFlowers myFlowersData = ModalRoute.of(context)!.settings.arguments as MyFlowers;
+    WonderfulFlowers myFlowersData = ModalRoute.of(context)!.settings.arguments as WonderfulFlowers;
 
     return Scaffold(
         appBar: AppBar(

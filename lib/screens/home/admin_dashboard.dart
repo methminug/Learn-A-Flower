@@ -1,79 +1,146 @@
 import 'package:flutter/material.dart';
-import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/routes/app_routes.dart';
-import 'package:learn_a_flower_app/widgets/app_bar_title.dart';
 
 class AdminDashboard extends StatelessWidget {
-  AdminDashboard({Key? key}) : super(key: key);
-
-  final List<String> _listFireItems = [
-    'Flower Management',
-    'Flower Disease Management',
-    'Quiz Management',
-  ];
-
-  final List<String> _listFireIcons = [
-    'assets/roses.png',
-    'assets/roses.png',
-    'assets/roses.png',
-  ];
-
-  final List<Widget?> _listFeatureScreens = [
-    null,
-    null,
-    null,
-  ];
+  const AdminDashboard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.black,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.green,
-        title: const AppBarTitle(
-          title: 'Admin Dashboard',
-        ),
-      ),
-      body: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 16.0,
-                right: 16.0,
-                bottom: 100.0,
-              ),
-              child: Column(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(AppRoutes.ADMIN_FLOWER_LIST);
-                    },
-                    child: const Text("Flower Management"),
+      backgroundColor: Colors.indigo.shade50,
+      body: SafeArea(
+        child: Container(
+          margin: const EdgeInsets.only(top: 18, left: 24, right: 24),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text(
+                    'Admin Dashboard',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.indigo,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(AppRoutes.ADMIN_DISEASE_LIST);
-                    },
-                    child: const Text("Flower Disease Management"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(AppRoutes.QUIZ_MANAGEMENT_LIST);
-                    },
-                    child: const Text("Quiz Management"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(AppRoutes.ADMIN_MY_FLOWERS_LIST);
-                    },
-                    child: const Text("My Flowers Management"),
+                  Icon(
+                    Icons.local_florist_sharp,
+                    color: Colors.indigo,
+                    size: 30,
                   ),
                 ],
               ),
-            ),
+              Expanded(
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    const SizedBox(height: 32),
+                    Center(
+                      child: Image.asset(
+                        'assets/flower.png',
+                        scale: 1.2,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const Center(
+                      child: Text(
+                        'Learn About Flower',
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 48),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _cardMenu(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(AppRoutes.ADMIN_FLOWER_LIST);
+                            // Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreen()));
+                          },
+                          icon: 'assets/manel.png',
+                          title: 'Flowers',
+                          color: Colors.indigoAccent,
+                          fontColor: Colors.white,
+                        ),
+                        _cardMenu(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(AppRoutes.ADMIN_DISEASE_LIST);
+                          },
+                          icon: 'assets/disease.png',
+                          title: 'Disease',
+                          color: Colors.indigoAccent,
+                          fontColor: Colors.white,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 28),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _cardMenu(
+                          icon: 'assets/quiz.png',
+                          title: 'Quiz',
+                          color: Colors.indigoAccent,
+                          fontColor: Colors.white,
+                        ),
+                        _cardMenu(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(AppRoutes.ADMIN_MY_FLOWERS_LIST);
+                          },
+                          icon: 'assets/my.png',
+                          title: 'Wonderful Flowers',
+                          color: Colors.indigoAccent,
+                          fontColor: Colors.white,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 28),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _cardMenu({
+    required String title,
+    required String icon,
+    VoidCallback? onTap,
+    Color color = Colors.white,
+    Color fontColor = Colors.grey,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          vertical: 36,
+        ),
+        width: 165,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Column(
+          children: [
+            Image.asset(icon, height: 80,),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: fontColor),
+            )
           ],
         ),
+      ),
     );
   }
 }

@@ -10,7 +10,8 @@ class myFlowersService {
 
   updateMyFlowers(WonderfulFlowers myFlowers) async {
     await _db.collection("MyFlowers").doc(myFlowers.id).update(
-        myFlowers.toMap());
+        myFlowers.toMap()).then((value) => print('updated'))
+        .catchError((error) => print('not working $error'));
   }
 
   Future<void> deleteMyFlowers(String documentId) async {

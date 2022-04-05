@@ -1,28 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/routes/app_routes.dart';
-import 'package:learn_a_flower_app/widgets/app_bar_title.dart';
 
 class UserDashboard extends StatelessWidget {
-  UserDashboard({Key? key}) : super(key: key);
-
-  final List<String> _listFireItems = [
-    'Flower Management',
-    'Flower Disease Management',
-    'Quiz Management',
-  ];
-
-  final List<String> _listFireIcons = [
-    'assets/roses.png',
-    'assets/roses.png',
-    'assets/roses.png',
-  ];
-
-  final List<Widget?> _listFeatureScreens = [
-    null,
-    null,
-    null,
-  ];
+  const UserDashboard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +19,16 @@ class UserDashboard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: const [
                   Text(
-                    'Learn About Flower',
+                    'User Dashboard',
                     style: TextStyle(
                       fontSize: 18,
-                      color: Colors.indigo,
+                      color: Colors.green,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Icon(
                     Icons.local_florist_sharp,
-                    color: Colors.indigo,
+                    color: Colors.green,
                     size: 30,
                   ),
                 ],
@@ -86,7 +66,7 @@ class UserDashboard extends StatelessWidget {
                           },
                           icon: 'assets/manel.png',
                           title: 'Flowers',
-                          color: Colors.indigoAccent,
+                          color: Colors.green,
                           fontColor: Colors.white,
                         ),
                         _cardMenu(
@@ -96,7 +76,7 @@ class UserDashboard extends StatelessWidget {
                           },
                           icon: 'assets/disease.png',
                           title: 'Disease',
-                          color: Colors.indigoAccent,
+                          color: Colors.green,
                           fontColor: Colors.white,
                         ),
                       ],
@@ -112,7 +92,7 @@ class UserDashboard extends StatelessWidget {
                           },
                           icon: 'assets/quiz.png',
                           title: 'Quiz',
-                          color: Colors.indigoAccent,
+                          color: Colors.green,
                           fontColor: Colors.white,
                         ),
                         _cardMenu(
@@ -121,8 +101,8 @@ class UserDashboard extends StatelessWidget {
                                 .pushNamed(AppRoutes.MY_FLOWERS_LIST);
                           },
                           icon: 'assets/my.png',
-                          title: 'My Flowers',
-                          color: Colors.indigoAccent,
+                          title: 'Wonderful Flowers',
+                          color: Colors.green,
                           fontColor: Colors.white,
                         ),
                       ],
@@ -137,7 +117,6 @@ class UserDashboard extends StatelessWidget {
       ),
     );
   }
-
   Widget _cardMenu({
     required String title,
     required String icon,
