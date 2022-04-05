@@ -2,59 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 
 class CustomFormField extends StatelessWidget {
+  final TextEditingController _emailController;
+  final FocusNode _emailFocusNode;
+  final TextInputAction _inputAction;
+  final bool isCapitalized;
+  final bool isLabelEnabled;
+  final Function(String) _validator;
+
   const CustomFormField({
     Key? key,
     required TextEditingController controller,
     required FocusNode focusNode,
-    required TextInputType keyboardType,
     required TextInputAction inputAction,
-    required String label,
-    required String hint,
     required Function(String value) validator,
-    this.isObscure = false,
     this.isCapitalized = false,
-    this.maxLines = 1,
     this.isLabelEnabled = true,
   })  : _emailController = controller,
         _emailFocusNode = focusNode,
-        _keyboardType = keyboardType,
         _inputAction = inputAction,
-        _label = label,
-        _hint = hint,
         _validator = validator,
         super(key: key);
-
-  final TextEditingController _emailController;
-
-  final FocusNode _emailFocusNode;
-  final TextInputType _keyboardType;
-  final TextInputAction _inputAction;
-  final String _label;
-  final String _hint;
-  final bool isObscure;
-  final bool isCapitalized;
-  final int maxLines;
-  final bool isLabelEnabled;
-  final Function(String) _validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      maxLines: maxLines,
+      maxLines: 1,
       controller: _emailController,
       focusNode: _emailFocusNode,
-      keyboardType: _keyboardType,
-      obscureText: isObscure,
-      textCapitalization:
-          isCapitalized ? TextCapitalization.words : TextCapitalization.none,
+      keyboardType: TextInputType.text,
+      obscureText: false,
+      textCapitalization: isCapitalized ? TextCapitalization.words : TextCapitalization.none,
       textInputAction: _inputAction,
       style: const TextStyle(color: Colors.black),
       cursorColor: Colors.black,
       validator: (value) => _validator(value!),
       decoration: InputDecoration(
-        labelText: isLabelEnabled ? _label : null,
+        labelText: isLabelEnabled ? 'User Name' : null,
         labelStyle: const TextStyle(color: Colors.black),
-        hintText: _hint,
+        hintText: 'Enter your username (admin / user)',
         hintStyle: TextStyle(
           color: AppColors.blueGreen.withOpacity(0.5),
         ),

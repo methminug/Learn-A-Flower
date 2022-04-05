@@ -12,8 +12,8 @@ class MyFlowerList extends StatefulWidget {
 
 class _MyFlowerListState extends State<MyFlowerList> {
   myFlowersService myFlowerService = myFlowersService();
-  Future<List<MyFlowers>>? myFlowerList;
-  List<MyFlowers>? retrievedMyFlowerList;
+  Future<List<WonderfulFlowers>>? myFlowerList;
+  List<WonderfulFlowers>? retrievedMyFlowerList;
 
   @override
   void initState() {
@@ -67,7 +67,7 @@ class _MyFlowerListState extends State<MyFlowerList> {
                   child: FutureBuilder(
                     future: myFlowerList,
                     builder: (BuildContext context,
-                        AsyncSnapshot<List<MyFlowers>> snapshot) {
+                        AsyncSnapshot<List<WonderfulFlowers>> snapshot) {
                       if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                         return ListView.builder(
                             itemCount: retrievedMyFlowerList!.length,
@@ -80,7 +80,7 @@ class _MyFlowerListState extends State<MyFlowerList> {
                                 child:GestureDetector(
                                       onTap: () {
                                         Navigator.pushNamed(
-                                            context, AppRoutes.EDIT_FLOWER,
+                                            context, AppRoutes.MY_FLOWER_DETAILS,
                                             arguments: retrievedMyFlowerList![index]);
                                       },
                                       child: Card(
@@ -160,13 +160,6 @@ class _MyFlowerListState extends State<MyFlowerList> {
               ],
             ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: (() {
-            Navigator.pushNamed(context, AppRoutes.ADD_MY_FLOWER);
-          }),
-          tooltip: 'add',
-          child: const Icon(Icons.add),
         ),
       ),
     );

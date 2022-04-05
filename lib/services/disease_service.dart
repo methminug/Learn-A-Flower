@@ -6,9 +6,9 @@ class DiseaseService{
 
   static Future<String> addDisease(Disease diseaseData) async {
     final docFlowerDisease = FirebaseFirestore.instance.collection('FlowerDisease').doc();
-    diseaseData.id = docFlowerDisease.id;
+    // diseaseData.id = docFlowerDisease.id;
     await docFlowerDisease.set({
-      'id': diseaseData.id,
+      'id': docFlowerDisease.id,
       'disease_image': diseaseData.disease_image,
       'disease_name': diseaseData.disease_name,
       'disease_description': diseaseData.disease_description

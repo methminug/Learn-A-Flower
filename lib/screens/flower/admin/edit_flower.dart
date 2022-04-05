@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/models/flower.dart';
+import 'package:learn_a_flower_app/screens/flower/admin/widgets/form_button_text.dart';
 import 'package:learn_a_flower_app/screens/flower/admin/widgets/form_image.dart';
 import 'package:learn_a_flower_app/screens/flower/admin/widgets/form_text.dart';
 import 'package:learn_a_flower_app/screens/flower/admin/widgets/form_text_field.dart';
@@ -44,7 +45,7 @@ class _EditFlowerScreenState extends State<EditFlowerScreen> {
         elevation: 10,
         title: Text(
           'Edit $flowerName Details',
-          style: const TextStyle(color: Colors.white, fontSize: 22),
+          style: const TextStyle(color: Colors.white),
         ),
       ),
       body: SingleChildScrollView(
@@ -61,14 +62,12 @@ class _EditFlowerScreenState extends State<EditFlowerScreen> {
                   children: [
                     const FormText(text: 'Flower Image URL'),
                   FormImageBox(imageUrl: imageUrl, width: 150.0, height: 100.0,),
-                  ],
-                ),
+                  ],),
                 const SizedBox(height: 8.0),
                 TextFormField(
                   controller: flowerImageController,
                   keyboardType: TextInputType.text,
-                  decoration:
-                      inputDecoration.copyWith(hintText: 'Enter flower image'),
+                  decoration: inputDecoration.copyWith(hintText: 'Enter flower image'),
                   onChanged: (value) {
                     setState(() {
                       imageUrl = flowerImageController.text;
@@ -79,8 +78,7 @@ class _EditFlowerScreenState extends State<EditFlowerScreen> {
                       return 'Please enter flower image';
                     }
                     return null;
-                  },
-                ),
+                  },),
                 const SizedBox(height: 24.0),
                 const FormText(text: 'Flower Name'),
                 const SizedBox(height: 8.0,),
@@ -123,20 +121,8 @@ class _EditFlowerScreenState extends State<EditFlowerScreen> {
                                 isLoading = false;
                               });
                               Navigator.of(context).pop();
-                            }
-                          }),
-                          child:  const Padding(
-                            padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
-                            child: Text(
-                              'Update Flower',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                letterSpacing: 2,
-                              ),
-                            ),
-                          ),
+                            }}),
+                          child:  const FormButtonText(text: 'Update Flower')
                         ),
                       )
                     : const Center(
@@ -149,8 +135,7 @@ class _EditFlowerScreenState extends State<EditFlowerScreen> {
                           ),
                         ),
                       )
-              ],
-            ),
+              ],),
           ),
         ),
       ),

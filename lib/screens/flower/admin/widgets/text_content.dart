@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 class TextContent extends StatelessWidget {
   final String flowerName, flowerDescription;
-  const TextContent({Key? key, required this.flowerName, required this.flowerDescription}) : super(key: key);
+
+  const TextContent(
+      {Key? key, required this.flowerName, required this.flowerDescription})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

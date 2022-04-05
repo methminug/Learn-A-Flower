@@ -13,7 +13,13 @@ class FormTextField extends StatelessWidget {
   final int lineCount;
   final String hintText, validator;
 
-  const FormTextField({Key? key, required this.controller, required this.lineCount, required this.hintText, required this.validator}) : super(key: key);
+  const FormTextField(
+      {Key? key,
+      required this.controller,
+      required this.lineCount,
+      required this.hintText,
+      required this.validator})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

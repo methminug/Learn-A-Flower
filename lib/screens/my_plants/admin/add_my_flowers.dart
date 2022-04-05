@@ -127,7 +127,7 @@ class _AddMyFlowerScreenState extends State<AddMyFlowerScreen> {
                     onPressed: (() async {
                       if (_formKey.currentState!.validate()) {
                         myFlowersService myFlowerService = myFlowersService();
-                        MyFlowers disease = MyFlowers(
+                        WonderfulFlowers disease = WonderfulFlowers(
                             flowerName: myFlowerNameController.text,
                             image: myFlowerImageController.text,
                             notes: myFlowerNoteController.text);

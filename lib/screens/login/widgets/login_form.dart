@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/helpers/validator.dart';
+import 'package:learn_a_flower_app/routes/app_routes.dart';
 import 'package:learn_a_flower_app/screens/home/admin_dashboard.dart';
 import 'package:learn_a_flower_app/screens/home/user_dashboard.dart';
 import 'custom_form_field.dart';
@@ -8,10 +9,7 @@ import 'custom_form_field.dart';
 class LoginForm extends StatefulWidget {
   final FocusNode focusNode;
 
-  const LoginForm({
-    Key? key,
-    required this.focusNode,
-  }) : super(key: key);
+  const LoginForm({Key? key, required this.focusNode,}) : super(key: key);
 
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -39,13 +37,10 @@ class _LoginFormState extends State<LoginForm> {
                 CustomFormField(
                   controller: _uidController,
                   focusNode: widget.focusNode,
-                  keyboardType: TextInputType.text,
                   inputAction: TextInputAction.done,
                   validator: (value) => Validator.validateUserID(
                     uid: value,
                   ),
-                  label: 'User Name',
-                  hint: 'Enter your username (admin / user)',
                 ),
               ],
             ),
@@ -56,9 +51,8 @@ class _LoginFormState extends State<LoginForm> {
               width: double.maxFinite,
               child: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                    AppColors.blueGreen
-                  ),
+                  backgroundColor:
+                      MaterialStateProperty.all(AppColors.blueGreen),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -67,23 +61,21 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 onPressed: () {
                   widget.focusNode.unfocus();
-
                   if (_loginInFormKey.currentState!.validate()) {
-                    //TODO:
-                    // Database.userUid = _uidController.text;
-                    if(_uidController.text == 'admin'){
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const AdminDashboard(),
-                        ),
-                      );
-                    }else {
-                      // _uidController.text = 'user';
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(
-                          builder: (context) => const UserDashboard(),
-                        ),
-                      );
+                    if (_uidController.text == 'admin') {
+                      Navigator.of(context).pushNamed(AppRoutes.ADMIN_DASHBOARD);
+                      // Navigator.of(context).pushReplacement(
+                        // MaterialPageRoute(
+                        //   builder: (context) => const AdminDashboard(),
+                        // ),
+                      // );
+                    } else {
+                      Navigator.of(context).pushNamed(AppRoutes.USER_DASHBOARD);
+                      // Navigator.of(context).pushReplacement(
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const UserDashboard(),
+                      //   ),
+                      // );
                     }
                   }
                 },

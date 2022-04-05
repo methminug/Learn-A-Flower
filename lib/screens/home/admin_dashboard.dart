@@ -95,7 +95,7 @@ class AdminDashboard extends StatelessWidget {
                             Navigator.of(context).pushNamed(AppRoutes.ADMIN_MY_FLOWERS_LIST);
                           },
                           icon: 'assets/my.png',
-                          title: 'My Flowers',
+                          title: 'Wonderful Flowers',
                           color: Colors.indigoAccent,
                           fontColor: Colors.white,
                         ),

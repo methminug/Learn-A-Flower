@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/models/flower.dart';
+import 'package:learn_a_flower_app/screens/flower/admin/widgets/form_button_text.dart';
 import 'package:learn_a_flower_app/screens/flower/admin/widgets/form_image.dart';
 import 'package:learn_a_flower_app/screens/flower/admin/widgets/form_text.dart';
 import 'package:learn_a_flower_app/screens/flower/admin/widgets/form_text_field.dart';
@@ -60,26 +61,23 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                   children: [
                     const FormText(text: 'Flower Image URL'),
                     FormImageBox(imageUrl: imageUrl, width: 150.0, height: 100.0,),
-                  ],
-                ),
+                  ],),
                 const SizedBox(height: 8.0),
                 TextFormField(
                   controller: flowerImageController,
                   keyboardType: TextInputType.text,
+                  decoration: inputDecoration.copyWith(hintText: 'Enter flower image'),
                   onChanged: (value) {
                     setState(() {
                       imageUrl = flowerImageController.text;
                     });
-                  },
-                  decoration:
-                      inputDecoration.copyWith(hintText: 'Enter flower image'),
+                    },
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter flower image';
                     }
                     return null;
-                  },
-                ),
+                  },),
                 const SizedBox(height: 24.0,),
                 const FormText(text: 'Flower Name'),
                 const SizedBox(height: 8.0,),
@@ -111,7 +109,7 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                               Flower flower = Flower(
                                   flowerImage: flowerImageController.text,
                                   flowerName: flowerNameController.text,
-                                  flowerDescription: flowerNameController.text,
+                                  flowerDescription: flowerDescriptionController.text,
                                   flowerInfoURL: flowerInfoURLController.text);
                               setState(() {
                                 isLoading = true;
@@ -121,20 +119,8 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                                 isLoading = false;
                               });
                               Navigator.of(context).pop();
-                            }
-                          }),
-                          child: const Padding(
-                            padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
-                            child: Text(
-                              'Add Flower',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                letterSpacing: 2,
-                              ),
-                            ),
-                          ),
+                            }}),
+                          child: const FormButtonText(text: 'Add Flower')
                         ),
                       )
                     : const Center(
@@ -147,11 +133,9 @@ class _AddFlowerScreenState extends State<AddFlowerScreen> {
                           ),
                         ),
                       )
-              ],
-            ),
+              ],),
           ),
         ),
       ),
-    );
-  }
+    );}
 }

@@ -22,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+        //References: https://github.com/sbis04/flutterfire-samples/tree/master
         onTap: () => _uidFocusNode.unfocus(),
         child: Scaffold(
           body: SafeArea(

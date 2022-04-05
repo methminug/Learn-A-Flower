@@ -24,7 +24,7 @@ class EditMyFlowerScreen extends StatefulWidget {
 }
 
 class _EditMyFlowerScreenState extends State<EditMyFlowerScreen> {
-  late MyFlowers flowerData;
+  late WonderfulFlowers flowerData;
   late TextEditingController flowerImageController;
   late TextEditingController flowerNameController;
   late TextEditingController flowerDescriptionController;
@@ -136,7 +136,7 @@ class _EditMyFlowerScreenState extends State<EditMyFlowerScreen> {
                             if (_formKey.currentState!.validate()) {
                               myFlowersService myFlowerService =
                                   myFlowersService();
-                              MyFlowers myFlowers = MyFlowers(
+                              WonderfulFlowers myFlowers = WonderfulFlowers(
                                   id: flowerData.id,
                                   flowerName: flowerData.flowerName,
                                   notes: flowerData.notes,
@@ -168,7 +168,7 @@ class _EditMyFlowerScreenState extends State<EditMyFlowerScreen> {
   }
 
   _initializeControllers() {
-    flowerData = ModalRoute.of(context)!.settings.arguments as MyFlowers;
+    flowerData = ModalRoute.of(context)!.settings.arguments as WonderfulFlowers;
     flowerNameController = TextEditingController(text: flowerData.flowerName);
     flowerImageController = TextEditingController(text: flowerData.image);
     flowerDescriptionController =

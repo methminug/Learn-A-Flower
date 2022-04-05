@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/models/flower.dart';
 import 'package:learn_a_flower_app/screens/flower/user/flower_details.dart';
+import 'package:learn_a_flower_app/screens/flower/user/widgets/grid_tile_footer.dart';
+import 'package:learn_a_flower_app/screens/flower/user/widgets/image_box.dart';
+import 'package:learn_a_flower_app/screens/flower/user/widgets/text_slider.dart';
 import 'package:learn_a_flower_app/services/flower_service.dart';
 
 class FlowerList extends StatefulWidget {
@@ -31,7 +34,10 @@ class _FlowerListState extends State<FlowerList> {
             appBar: AppBar(
               elevation: 10,
               backgroundColor: AppColors.blueGreen,
-              title: const Text("Learn About Flowers", style: TextStyle(color: Colors.white),),
+              title: const Text(
+                "Learn About Flowers",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             body: RefreshIndicator(
                 onRefresh: _refresh,
@@ -48,17 +54,27 @@ class _FlowerListState extends State<FlowerList> {
                           children: [
                             // References: https://www.geeksforgeeks.org/flutter-carousel-slider/ & https://pub.dev/packages/carousel_slider
                             CarouselSlider(
-                              items: [
-                                textSlider(context, Colors.indigo, 'Flowers can help heal the common cold.', Colors.white, Icons.ac_unit_rounded),
-                                textSlider(context, Colors.deepPurpleAccent, 'Flowers can help improve people mood.', Colors.white, Icons.tag_faces_sharp),
-                                textSlider(context, Colors.blueGrey, 'Flowers increase energy.', Colors.white, Icons.wb_sunny_sharp)
+                              items: const [
+                                TextSlider(
+                                    color: Colors.indigo,
+                                    text:
+                                        'Flowers can help heal the common cold.',
+                                    icon: Icons.ac_unit_rounded),
+                                TextSlider(
+                                    color: Colors.deepPurpleAccent,
+                                    text:
+                                        'Flowers can help improve people mood.',
+                                    icon: Icons.tag_faces_sharp),
+                                TextSlider(
+                                    color: Colors.blueGrey,
+                                    text: 'Flowers increase energy.',
+                                    icon: Icons.wb_sunny_sharp)
                               ],
                               //Slider Container properties
                               options: CarouselOptions(
                                 height: 100,
                                 enlargeCenterPage: true,
                                 autoPlay: true,
-                                // aspectRatio: 2 / 3,
                                 autoPlayCurve: Curves.fastOutSlowIn,
                                 enableInfiniteScroll: true,
                                 autoPlayAnimationDuration:
@@ -83,9 +99,7 @@ class _FlowerListState extends State<FlowerList> {
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 15,
-                        ),
+                        const SizedBox(height: 15),
                         Expanded(
                           child: FutureBuilder(
                             future: flowerList,
@@ -102,8 +116,7 @@ class _FlowerListState extends State<FlowerList> {
                                               childAspectRatio: 1,
                                               maxCrossAxisExtent: 200,
                                               crossAxisSpacing: 20,
-                                              mainAxisSpacing: 20
-                                          ),
+                                              mainAxisSpacing: 20),
                                       itemCount: retrievedFlowerList!.length,
                                       shrinkWrap: true,
                                       physics: const ScrollPhysics(),
@@ -117,22 +130,34 @@ class _FlowerListState extends State<FlowerList> {
                                                 builder:
                                                     (BuildContext context) {
                                                   return CustomDialogBox(
-                                                    title: retrievedFlowerList![index].flowerName,
-                                                    descriptions: retrievedFlowerList![index].flowerDescription,
-                                                    img: retrievedFlowerList![index].flowerImage,
-                                                    url: retrievedFlowerList![index].flowerInfoURL,
+                                                    title: retrievedFlowerList![
+                                                            index]
+                                                        .flowerName,
+                                                    descriptions:
+                                                        retrievedFlowerList![
+                                                                index]
+                                                            .flowerDescription,
+                                                    img: retrievedFlowerList![
+                                                            index]
+                                                        .flowerImage,
+                                                    url: retrievedFlowerList![
+                                                            index]
+                                                        .flowerInfoURL,
                                                   );
                                                 });
                                           },
                                           //References: https://api.flutter.dev/flutter/material/GridTile-class.html
                                           child: GridTile(
-                                              footer: gridTileFooter(
-                                                  context,
-                                                  retrievedFlowerList![index].flowerName),
-                                              child: imageBox(
-                                                  context,
-                                                  retrievedFlowerList![index].flowerImage)
-                                          ),
+                                              footer: GridTileFooter(
+                                                  flowerName:
+                                                      retrievedFlowerList![
+                                                              index]
+                                                          .flowerName),
+                                              child: ImageBox(
+                                                flowerImage:
+                                                    retrievedFlowerList![index]
+                                                        .flowerImage,
+                                              )),
                                         );
                                       }),
                                 );
@@ -170,70 +195,5 @@ class _FlowerListState extends State<FlowerList> {
     flowerList = flowerService.getFlowers();
     retrievedFlowerList = await flowerService.getFlowers();
     setState(() {});
-  }
-
-  //TODO:
-  Widget gridTileFooter(BuildContext context, String flowerName) {
-    return Material(
-      color: Colors.transparent,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
-      ),
-      clipBehavior: Clip.antiAlias,
-      child: GridTileBar(
-        backgroundColor: Colors.black45,
-        title: FittedBox(
-          fit: BoxFit.scaleDown,
-          alignment: AlignmentDirectional.centerStart,
-          child: Text(
-            flowerName,
-            style: const TextStyle(fontSize: 18),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget imageBox(BuildContext context, String flowerImage) {
-    return Material(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      clipBehavior: Clip.antiAlias,
-      child: Image.network(
-        flowerImage,
-        fit: BoxFit.cover,
-      ),
-    );
-  }
-
-  Widget textSlider(
-      BuildContext context, Color color, String text, Color textColor, IconData icon) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          margin: const EdgeInsets.all(6.0),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0), color: color),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Container(
-              alignment: Alignment.centerRight,
-              child: Icon(
-                icon,
-                size: 50,
-                color: Colors.white,
-              )),
-        ),
-        Container(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text(
-                text,
-                style: TextStyle(fontSize: 20, color: textColor),
-              ),
-            ))
-      ],
-    );
   }
 }

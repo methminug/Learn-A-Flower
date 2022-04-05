@@ -4,6 +4,7 @@ import 'package:learn_a_flower_app/models/flower.dart';
 class FlowerService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
+  //Add new flower
   static Future<String> addFlower(Flower flowerData) async {
     final docFlower = FirebaseFirestore.instance.collection('Flowers').doc();
     flowerData.id = docFlower.id;
@@ -17,6 +18,7 @@ class FlowerService {
     return docFlower.id;
   }
 
+  //Update flower
   static Future updateFlower(Flower flowerData) async {
     final docFlower =
         FirebaseFirestore.instance.collection('Flowers').doc(flowerData.id);
@@ -31,10 +33,12 @@ class FlowerService {
         .catchError((error) => print('not working $error'));
   }
 
+  //Delete flower
   Future<void> deleteFlower(String flowerDocId) async {
     await _db.collection('Flowers').doc(flowerDocId).delete();
   }
 
+  //Get all flowers
   Future<List<Flower>> getFlowers() async {
     QuerySnapshot<Map<String, dynamic>> snapshot =
         await _db.collection('Flowers').get();

@@ -32,15 +32,9 @@ class _FlowerDashboardScreenState extends State<FlowerDashboardScreen> {
         appBar: AppBar(
             backgroundColor: AppColors.blueGreen,
             elevation: 10,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                Text(
-                  'Flower Management',
-                  style: TextStyle(color: Colors.white),
+            title: const Text('Flower Management', style: TextStyle(color: Colors.white),
                 ),
-              ],
-            )),
+              ),
         body: RefreshIndicator(
           onRefresh: _refresh,
           child: Padding(
@@ -48,9 +42,7 @@ class _FlowerDashboardScreenState extends State<FlowerDashboardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10,),
                 Expanded(
                   child: FutureBuilder(
                     future: flowerList,
@@ -107,16 +99,14 @@ class _FlowerDashboardScreenState extends State<FlowerDashboardScreen> {
                                               Expanded(
                                                   child: TextContent(flowerName:  retrievedFlowerList![index].flowerName, flowerDescription:  retrievedFlowerList![index].flowerDescription)
                                                   )
-                                            ],
-                                          ),
+                                            ],),
                                         ),
                                       ),
-                                    )),
+                                    )
+                                ),
                               );
                             });
-                      } else if (snapshot.connectionState ==
-                              ConnectionState.done &&
-                          retrievedFlowerList!.isEmpty) {
+                      } else if (snapshot.connectionState == ConnectionState.done && retrievedFlowerList!.isEmpty) {
                         return Center(
                           child: ListView(
                             children: const [
@@ -124,19 +114,15 @@ class _FlowerDashboardScreenState extends State<FlowerDashboardScreen> {
                                 alignment: AlignmentDirectional.center,
                                 child: Text('No flowers to display'),
                               ),
-                            ],
-                          ),
+                            ],),
                         );
                       } else {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
-                      }
-                    },
-                  ),
+                      }},),
                 ),
-              ],
-            ),
+              ],),
           ),
         ),
         floatingActionButton: FloatingActionButton(
@@ -169,36 +155,4 @@ class _FlowerDashboardScreenState extends State<FlowerDashboardScreen> {
   void _dismiss() {
     flowerList = flowerService.getFlowers();
   }
-
-  // Widget textContent(
-  //     BuildContext context, String flowerName, String flowerDescription) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.stretch,
-  //     children: [
-  //       Text(
-  //         flowerName,
-  //         maxLines: 2,
-  //         overflow: TextOverflow.ellipsis,
-  //         style: const TextStyle(
-  //           fontWeight: FontWeight.w600,
-  //           fontSize: 18.0,
-  //         ),
-  //       ),
-  //       const SizedBox(
-  //         height: 5.0,
-  //       ),
-  //       Text(
-  //         flowerDescription,
-  //         maxLines: 3,
-  //         overflow: TextOverflow.ellipsis,
-  //         style: const TextStyle(
-  //           color: Color.fromRGBO(139, 144, 165, 1),
-  //         ),
-  //       ),
-  //       const SizedBox(
-  //         height: 5.0,
-  //       ),
-  //     ],
-  //   );
-  // }
 }
