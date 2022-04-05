@@ -1,11 +1,11 @@
 
-class MyFlowers {
+class WonderfulFlowers {
   final String? id;
   final String flowerName;
   final String image;
   final String notes;
 
-  MyFlowers({this.id,
+  WonderfulFlowers({this.id,
     required this.flowerName,
     required this.image,
     required this.notes});
@@ -18,9 +18,9 @@ class MyFlowers {
     };
   }
 
-  factory MyFlowers.fromDocumentSnapshot(dynamic doc)
+  factory WonderfulFlowers.fromDocumentSnapshot(dynamic doc)
   {
-    return MyFlowers(
+    return WonderfulFlowers(
         flowerName: doc.data()!["flowerName"],
         image: doc.data()!["image"],
         notes: doc.data()!["notes"]
