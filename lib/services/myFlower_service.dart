@@ -4,13 +4,14 @@ import '../models/myFlower.dart';
 class myFlowersService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  addEmployee(MyFlowers myFlowers) async {
+  addEmployee(WonderfulFlowers myFlowers) async {
     await _db.collection("MyFlowers").add(myFlowers.toMap());
   }
 
-  updateMyFlowers(MyFlowers myFlowers) async {
+  updateMyFlowers(WonderfulFlowers myFlowers) async {
     await _db.collection("MyFlowers").doc(myFlowers.id).update(
-        myFlowers.toMap());
+        myFlowers.toMap()).then((value) => print('updated'))
+        .catchError((error) => print('not working $error'));
   }
 
   Future<void> deleteMyFlowers(String documentId) async {
@@ -18,11 +19,11 @@ class myFlowersService {
 
 }
 
-Future<List<MyFlowers>> retrieveMyFlowers() async {
+Future<List<WonderfulFlowers>> retrieveMyFlowers() async {
   QuerySnapshot<Map<String, dynamic>> snapshot =
   await _db.collection("MyFlowers").get();
   return snapshot.docs
-      .map((docSnapshot) => MyFlowers.fromDocumentSnapshot(docSnapshot))
+      .map((docSnapshot) => WonderfulFlowers.fromDocumentSnapshot(docSnapshot))
       .toList();
 }
 }

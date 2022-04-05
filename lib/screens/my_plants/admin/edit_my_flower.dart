@@ -4,10 +4,8 @@ import 'package:learn_a_flower_app/services/myFlower_service.dart';
 
 
 const textStyle = TextStyle(
-  color: Colors.white,
-  fontSize: 22.0,
-  letterSpacing: 1,
-  fontWeight: FontWeight.bold,
+  color: Colors.black,
+  fontSize: 20.0,
 );
 
 final inputDecoration = InputDecoration(
@@ -26,7 +24,7 @@ class EditMyFlowerScreen extends StatefulWidget {
 }
 
 class _EditMyFlowerScreenState extends State<EditMyFlowerScreen> {
-  late MyFlowers flowerData;
+  late WonderfulFlowers flowerData;
   late TextEditingController flowerImageController;
   late TextEditingController flowerNameController;
   late TextEditingController flowerDescriptionController;
@@ -125,15 +123,20 @@ class _EditMyFlowerScreenState extends State<EditMyFlowerScreen> {
                     ? Center(
                         child: ElevatedButton(
                           style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                Colors.lightGreen,
+                              ),
                               minimumSize: MaterialStateProperty.all(
-                                  const Size(200, 50)),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  const Color.fromARGB(255, 83, 80, 80))),
+                                  const Size(250, 50)),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(10)))),
                           onPressed: (() async {
                             if (_formKey.currentState!.validate()) {
                               myFlowersService myFlowerService =
                                   myFlowersService();
-                              MyFlowers myFlowers = MyFlowers(
+                              WonderfulFlowers myFlowers = WonderfulFlowers(
                                   id: flowerData.id,
                                   flowerName: flowerData.flowerName,
                                   notes: flowerData.notes,
@@ -165,7 +168,7 @@ class _EditMyFlowerScreenState extends State<EditMyFlowerScreen> {
   }
 
   _initializeControllers() {
-    flowerData = ModalRoute.of(context)!.settings.arguments as MyFlowers;
+    flowerData = ModalRoute.of(context)!.settings.arguments as WonderfulFlowers;
     flowerNameController = TextEditingController(text: flowerData.flowerName);
     flowerImageController = TextEditingController(text: flowerData.image);
     flowerDescriptionController =

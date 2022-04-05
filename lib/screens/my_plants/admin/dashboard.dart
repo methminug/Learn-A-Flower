@@ -12,8 +12,8 @@ class MyPlantsDashboard extends StatefulWidget {
 
 class _MyPlantsDashboardState extends State<MyPlantsDashboard> {
   myFlowersService myFlowerService = myFlowersService();
-  Future<List<MyFlowers>>? myFlowerList;
-  List<MyFlowers>? retrievedMyFlowerList;
+  Future<List<WonderfulFlowers>>? myFlowerList;
+  List<WonderfulFlowers>? retrievedMyFlowerList;
 
   @override
   void initState() {
@@ -67,7 +67,7 @@ class _MyPlantsDashboardState extends State<MyPlantsDashboard> {
                   child: FutureBuilder(
                     future: myFlowerList,
                     builder: (BuildContext context,
-                        AsyncSnapshot<List<MyFlowers>> snapshot) {
+                        AsyncSnapshot<List<WonderfulFlowers>> snapshot) {
                       if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                         return ListView.builder(
                             itemCount: retrievedMyFlowerList!.length,

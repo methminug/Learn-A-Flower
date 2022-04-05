@@ -1,5 +1,5 @@
 class Disease {
-  final String? id;
+  late final String? id;
   final String disease_name;
   final String disease_description;
   final String disease_image;

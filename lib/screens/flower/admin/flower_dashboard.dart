@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:learn_a_flower_app/helpers/colors.dart';
 import 'package:learn_a_flower_app/models/flower.dart';
 import 'package:learn_a_flower_app/routes/app_routes.dart';
+import 'package:learn_a_flower_app/screens/flower/admin/widgets/form_image.dart';
+import 'package:learn_a_flower_app/screens/flower/admin/widgets/text_content.dart';
 import 'package:learn_a_flower_app/services/flower_service.dart';
 
 class FlowerDashboardScreen extends StatefulWidget {
@@ -23,46 +26,23 @@ class _FlowerDashboardScreenState extends State<FlowerDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color(0Xffe7f5e7),
         appBar: AppBar(
-            title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: const [
-            Text('Dashboard'),
-            Icon(
-              Icons.local_florist_sharp,
-              size: 35,
-              // color: Color(0xff00A02E),
-            ),
-          ],
-        )),
+            backgroundColor: AppColors.blueGreen,
+            elevation: 10,
+            title: const Text('Flower Management', style: TextStyle(color: Colors.white),
+                ),
+              ),
         body: RefreshIndicator(
           onRefresh: _refresh,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
-                      'Explore Flowers',
-                      style: TextStyle(
-                          color: Color(0xff00A02E),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10,),
                 Expanded(
                   child: FutureBuilder(
                     future: flowerList,
@@ -75,23 +55,17 @@ class _FlowerDashboardScreenState extends State<FlowerDashboardScreen> {
                             scrollDirection: Axis.vertical,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
+                                padding: const EdgeInsets.symmetric(vertical: 10),
                                 child: Dismissible(
                                     onDismissed: ((direction) async {
-                                      await flowerService.deleteFlower(
-                                          retrievedFlowerList![index]
-                                              .documentId
-                                              .toString());
+                                      await flowerService.deleteFlower(retrievedFlowerList![index].id.toString());
                                       _dismiss();
                                     }),
                                     background: Container(
                                       decoration: BoxDecoration(
                                           color: Colors.red,
-                                          borderRadius:
-                                              BorderRadius.circular(16.0)),
-                                      padding:
-                                          const EdgeInsets.only(right: 28.0),
+                                          borderRadius: BorderRadius.circular(20.0)),
+                                      padding: const EdgeInsets.only(right: 28.0),
                                       alignment: AlignmentDirectional.centerEnd,
                                       child: const Text(
                                         'Delete',
@@ -110,60 +84,29 @@ class _FlowerDashboardScreenState extends State<FlowerDashboardScreen> {
                                       },
                                       child: Card(
                                         semanticContainer: true,
-                                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
                                         shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
+                                          borderRadius: BorderRadius.circular(20.0),
                                         ),
                                         elevation: 5,
-                                        child: Row(
-                                          children: [
-                                            Image.network(
-                                              retrievedFlowerList![index].flowerImage,
-                                              height: 130,
-                                              width: 150,
-                                              fit: BoxFit.fill,
-                                            ),
-                                            Expanded(
-                                                child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 10.0,
-                                                  bottom: 10.0,
-                                                  left: 2.0,
-                                                  right: 2.0),
-                                              child: Column(
-                                                children: [
-                                                  Text(
-                                                    retrievedFlowerList![index].flowerName,
-                                                    textAlign: TextAlign.center,
-                                                    style: const TextStyle(
-                                                      fontSize: 20.0,
-                                                      fontWeight: FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 5.0),
-                                                    child: Text(
-                                                      retrievedFlowerList![index]
-                                                          .flowerDescription,
-                                                      style: const TextStyle(
-                                                          fontSize: 14.0),
-                                                    ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(right: 10),
+                                          child: Row(
+                                            children: [
+                                              FormImageBox(imageUrl: retrievedFlowerList![index].flowerImage, width: 125, height: 120),
+                                              const SizedBox(width: 20.0,),
+                                              Expanded(
+                                                  child: TextContent(flowerName:  retrievedFlowerList![index].flowerName, flowerDescription:  retrievedFlowerList![index].flowerDescription)
                                                   )
-                                                ],
-                                              ),
-                                            ))
-                                          ],
+                                            ],),
                                         ),
                                       ),
-                                    )),
+                                    )
+                                ),
                               );
                             });
-                      } else if (snapshot.connectionState ==
-                              ConnectionState.done &&
-                          retrievedFlowerList!.isEmpty) {
+                      } else if (snapshot.connectionState == ConnectionState.done && retrievedFlowerList!.isEmpty) {
                         return Center(
                           child: ListView(
                             children: const [
@@ -171,27 +114,28 @@ class _FlowerDashboardScreenState extends State<FlowerDashboardScreen> {
                                 alignment: AlignmentDirectional.center,
                                 child: Text('No flowers to display'),
                               ),
-                            ],
-                          ),
+                            ],),
                         );
                       } else {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
-                      }
-                    },
-                  ),
+                      }},),
                 ),
-              ],
-            ),
+              ],),
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: AppColors.blueGreen,
           onPressed: (() {
             Navigator.pushNamed(context, AppRoutes.ADD_FLOWER);
           }),
-          tooltip: 'add',
-          child: const Icon(Icons.add),
+          tooltip: 'Add New Flower',
+          child: const Icon(
+            Icons.add,
+            size: 30,
+            color: Colors.white,
+          ),
         ),
       ),
     );
