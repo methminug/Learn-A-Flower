@@ -91,7 +91,7 @@ class UserDashboard extends StatelessWidget {
                                 .pushNamed(AppRoutes.QUIZ_PLAY_LIST);
                           },
                           icon: 'assets/quiz.png',
-                          title: 'Quiz',
+                          title: 'Play A Quiz',
                           color: Colors.green,
                           fontColor: Colors.white,
                         ),
@@ -117,6 +117,7 @@ class UserDashboard extends StatelessWidget {
       ),
     );
   }
+
   Widget _cardMenu({
     required String title,
     required String icon,

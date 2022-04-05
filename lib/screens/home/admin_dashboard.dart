@@ -61,8 +61,8 @@ class AdminDashboard extends StatelessWidget {
                       children: [
                         _cardMenu(
                           onTap: () {
-                            Navigator.of(context).pushNamed(AppRoutes.ADMIN_FLOWER_LIST);
-                            // Navigator.push(context, PageTransition(type: PageTransitionType.fade, child: DetailScreen()));
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.ADMIN_FLOWER_LIST);
                           },
                           icon: 'assets/manel.png',
                           title: 'Flowers',
@@ -71,7 +71,8 @@ class AdminDashboard extends StatelessWidget {
                         ),
                         _cardMenu(
                           onTap: () {
-                            Navigator.of(context).pushNamed(AppRoutes.ADMIN_DISEASE_LIST);
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.ADMIN_DISEASE_LIST);
                           },
                           icon: 'assets/disease.png',
                           title: 'Disease',
@@ -85,14 +86,19 @@ class AdminDashboard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         _cardMenu(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.QUIZ_MANAGEMENT_LIST);
+                          },
                           icon: 'assets/quiz.png',
-                          title: 'Quiz',
+                          title: 'Quiz Management',
                           color: Colors.indigoAccent,
                           fontColor: Colors.white,
                         ),
                         _cardMenu(
                           onTap: () {
-                            Navigator.of(context).pushNamed(AppRoutes.ADMIN_MY_FLOWERS_LIST);
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.ADMIN_MY_FLOWERS_LIST);
                           },
                           icon: 'assets/my.png',
                           title: 'Wonderful Flowers',
@@ -132,11 +138,15 @@ class AdminDashboard extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Image.asset(icon, height: 80,),
+            Image.asset(
+              icon,
+              height: 80,
+            ),
             const SizedBox(height: 10),
             Text(
               title,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: fontColor),
+              style: TextStyle(
+                  fontSize: 15, fontWeight: FontWeight.bold, color: fontColor),
             )
           ],
         ),
