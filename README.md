@@ -1,6 +1,6 @@
 # Learn A Flower App
 
-A Flutter application that helps anyone learn about flowers!
+A mobile application to help anyone learn about flowers! 🌻
 
 ## Technologies Used
 
