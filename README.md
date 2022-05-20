@@ -14,8 +14,7 @@ A mobile application to help anyone learn about flowers! 🌻
 
 ![image](https://user-images.githubusercontent.com/62464945/169243530-7121aff5-aeaa-49af-97a7-8f1540ef5f34.png)
 
-https://user-images.githubusercontent.com/62464945/169246897-f6ad00a5-ccb4-496e-b1d8-31fc353704f3.mp4
-
+![learnaflower](https://user-images.githubusercontent.com/62464945/169441840-21a4aac2-22ca-46e8-b58f-28975149bcb4.gif)
 
 ![image](https://user-images.githubusercontent.com/62464945/169241905-c5e59454-3c59-48c0-92e6-6b5ee9341cdd.png)
 
